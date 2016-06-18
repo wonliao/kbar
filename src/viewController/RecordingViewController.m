@@ -155,6 +155,9 @@
 
 - (IBAction)playButtonTapped:(id)sender
 {
+    // 錄影
+    [self playVideo];
+
     // 播放合成之後的歌曲
     [m_recordAudio playSong];
 
@@ -167,8 +170,7 @@
     [button2 setTitle:@"停止"];
     [button2 setAction:@selector(stopSongButtonTapped:)];
     
-    // 錄影
-    [self playVideo];
+
 }
 
 - (IBAction)stopSongButtonTapped:(id)sender
@@ -200,6 +202,14 @@
 
 - (IBAction)reRecordTapped:(id)sender
 {
+    // 檢查是否在MV模式?
+    if(myView.hidden == NO) {
+        
+        // 開始錄影
+        [captureOutput startRecordingToOutputFileURL:fileUrl recordingDelegate:self];
+    }
+
+    // 錄音
     [self reRecord];
 }
 
@@ -569,7 +579,7 @@
         NSLog(@"已登錄facebook!!");
     }
 }
-
+/*
 // 準備長條圖
 - (void) initBarChart
 {
@@ -640,7 +650,7 @@
     barChart.layer.zPosition = 100;
     [self.view addSubview:barChart];
 }
-
+*/
 - (IBAction)pauseTapped:(id)sender
 {
     [m_recordAudio pause];
@@ -741,8 +751,7 @@
 {
     NSLog(@"starVideoRecord");
     [captureSession startRunning];
-    [captureOutput startRecordingToOutputFileURL:fileUrl
-                               recordingDelegate:self];
+    //[captureOutput startRecordingToOutputFileURL:fileUrl recordingDelegate:self];
 }
 
 -(void)stopVideoRecord
@@ -782,6 +791,12 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [myView.layer addSublayer:playerLayer];
 
+    // 影片因不明原因慢了一秒，暫用快轉一秒的方式解
+    CMTime newTime = CMTimeMakeWithSeconds(0, 1);
+    newTime.value += 1.5;
+    [m_videoPlayer seekToTime: newTime];
+
+    
     [m_videoPlayer play];
 }
 
@@ -798,7 +813,6 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 
         myView.hidden = NO;
         [button5 setTitle:@"普通模式" forState:UIControlStateNormal];
-
     } else {
 
         [self stopVideoRecord];
