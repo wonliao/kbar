@@ -88,6 +88,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     NSURL *musicURL = [NSURL fileURLWithPath:mp3];
 	m_pLongMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
     //[m_pLongMusicPlayer prepareToPlay];
+    [m_pLongMusicPlayer setVolume: 0.3];    // 音樂音量
     [m_pLongMusicPlayer play];
 
     // 動態歌詞的起始時間
@@ -135,7 +136,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     //[self setUpAndAddAudioAtPath:assetURL2 toComposition:composition with:assetURL1 offset:CMTimeMake(0, 44100)];
     //[self setUpAndAddAudioAtPath:assetURL2 toComposition:composition with:assetURL1 offset:CMTimeMake(44100/10, 44100) setVolume:0.8f ];
 
-    float musicVolume = 1.0f;
+    float musicVolume = 0.3f;
 
     // 取得裝置代號
     struct utsname systemInfo;

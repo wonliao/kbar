@@ -2000,7 +2000,6 @@
 				LastUpgradeCheck = 0500;
 				TargetAttributes = {
 					2750E76B14CDB0DF007727A0 = {
-						DevelopmentTeam = 33KWT6SSZK;
 						SystemCapabilities = {
 							com.apple.iOS = {
 								enabled = 0;
@@ -2502,6 +2501,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kbar.kbar;
 				PRODUCT_NAME = kBar;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -2530,6 +2530,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kbar.kbar;
 				PRODUCT_NAME = kBar;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
