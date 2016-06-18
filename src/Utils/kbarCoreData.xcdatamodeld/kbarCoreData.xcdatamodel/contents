@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="11G63" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="FBUserInfo" representedClassName="FBUserInfo" syncable="YES">
+        <attribute name="fbLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fbName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fbPlace" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fbUID" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="HomePageData" representedClassName="HomePageData" syncable="YES">
+        <attribute name="area" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fbImageFilename" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageFilename" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imgURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="keyName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="post_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="size" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Playing" representedClassName="Playing" syncable="YES">
+        <attribute name="fbImageFilename" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageFilename" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="post_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Record" representedClassName="Record" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="downloaded" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="file" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="file_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="row" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Recording" representedClassName="Recording" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="file" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="RecordSongList" representedClassName="RecordSongList" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="FBUserInfo" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="Playing" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="Record" positionX="387" positionY="189" width="128" height="150"/>
+        <element name="Recording" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="RecordSongList" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="HomePageData" positionX="160" positionY="192" width="128" height="180"/>
+    </elements>
+</model>

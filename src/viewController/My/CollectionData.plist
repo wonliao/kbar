@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>text</key>
+		<string>今天你要嫁給我</string>
+		<key>detail</key>
+		<string>紅不讓</string>
+		<key>image</key>
+		<string>Photo_L_2.png</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>很愛很愛你</string>
+		<key>detail</key>
+		<string>紅不讓</string>
+		<key>image</key>
+		<string>Photo_L_2.png</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>飛向你飛向我</string>
+		<key>detail</key>
+		<string>紅不讓</string>
+		<key>image</key>
+		<string>Photo_L_2.png</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>你不知道的事</string>
+		<key>detail</key>
+		<string>鐘楚紅</string>
+		<key>image</key>
+		<string>Photo_L_3.png</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>一千個傷心的理由</string>
+		<key>detail</key>
+		<string>鐘楚紅</string>
+		<key>image</key>
+		<string>Photo_L_3.png</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>寶貝對不起</string>
+		<key>detail</key>
+		<string>曹格</string>
+		<key>image</key>
+		<string>Photo_L_4.png</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>失戀陣線聯盟</string>
+		<key>detail</key>
+		<string>曹格</string>
+		<key>image</key>
+		<string>Photo_L_4.png</string>
+	</dict>
+</array>
+</plist>

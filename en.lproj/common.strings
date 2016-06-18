@@ -1,0 +1,12 @@
+/* 
+  common.strings
+  kBar
+
+  Created by wonliao on 13/3/22.
+
+*/
+
+"上拉載入更多" = "Pull to load more";
+"載入中..." = "Loading...";
+"下拉重新整理..." = "Pull down to refresh status";
+"放開即更新..." = "Release to refresh status";

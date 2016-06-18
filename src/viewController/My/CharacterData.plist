@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>text</key>
+		<string>紅不讓</string>
+		<key>detail</key>
+		<string>Lv.10 駐唱歌手</string>
+		<key>image</key>
+		<string>Photo_L_2.png</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>鐘楚紅</string>
+		<key>detail</key>
+		<string>Lv.1 流浪歌手</string>
+		<key>image</key>
+		<string>Photo_L_3.png</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>華飛娘娘</string>
+		<key>detail</key>
+		<string>Lv.1 流浪歌手</string>
+		<key>image</key>
+		<string>Photo_L_4.png</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>溫踏一</string>
+		<key>detail</key>
+		<string>Lv.1 流浪歌手</string>
+		<key>image</key>
+		<string>Photo_L_2.png</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>蘇打蘭</string>
+		<key>detail</key>
+		<string>Lv.1 流浪歌手</string>
+		<key>image</key>
+		<string>Photo_L_3.png</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>曹格</string>
+		<key>detail</key>
+		<string>Lv.1 流浪歌手</string>
+		<key>image</key>
+		<string>Photo_L_4.png</string>
+	</dict>
+	<dict>
+		<key>text</key>
+		<string>流星雨</string>
+		<key>detail</key>
+		<string>Lv.1 流浪歌手</string>
+		<key>image</key>
+		<string>Photo_L_2.png</string>
+	</dict>
+</array>
+</plist>
