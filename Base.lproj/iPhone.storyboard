@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ITw-pC-ghZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="pdU-z0-5cG">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -882,7 +882,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8L9-gD-dDt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="2nF-vH-CJP" customClass="CaptureSessionController"/>
             </objects>
-            <point key="canvasLocation" x="3505" y="219"/>
+            <point key="canvasLocation" x="3679" y="-997"/>
         </scene>
         <!--歌曲清單-->
         <scene sceneID="JSb-Mg-qNO">
@@ -896,8 +896,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="eLa-fW-50E">
-                                <rect key="frame" x="0.0" y="32" width="320" height="416"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="eLa-fW-50E">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="nFh-V3-aeR" id="Et8-jE-mYk"/>
@@ -906,12 +906,18 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eLa-fW-50E" firstAttribute="bottom" secondItem="gCl-Ll-Pla" secondAttribute="top" id="Htd-SE-5JQ"/>
+                            <constraint firstItem="eLa-fW-50E" firstAttribute="top" secondItem="cKt-hj-jk8" secondAttribute="bottom" id="bAa-NA-wtX"/>
+                            <constraint firstAttribute="trailing" secondItem="eLa-fW-50E" secondAttribute="trailing" id="gSL-8d-mXJ"/>
+                            <constraint firstItem="eLa-fW-50E" firstAttribute="leading" secondItem="exj-xt-4e2" secondAttribute="leading" id="wc9-1B-RsF"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="歌曲清單" id="EdM-tA-gCF"/>
+                    <navigationItem key="navigationItem" title="歌曲清單" id="Lnw-oM-n5b"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FQM-8V-ZfJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3023" y="219"/>
+            <point key="canvasLocation" x="3041" y="35"/>
         </scene>
         <!--熱門歌榜-->
         <scene sceneID="bKq-3k-Klw">
@@ -2423,6 +2429,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Clz-Yv-d6X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="221" y="3336"/>
+        </scene>
+        <!--本地歌曲清單-->
+        <scene sceneID="EGU-Ud-msE">
+            <objects>
+                <viewController storyboardIdentifier="SongListLocal" id="pdU-z0-5cG" userLabel="本地歌曲清單" customClass="SongListViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8PG-lN-7dV"/>
+                        <viewControllerLayoutGuide type="bottom" id="r6g-2f-u3E"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VOK-G7-18j">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUF-7r-hlH">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="B8N-U6-MSd"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="歌曲選單" id="hkc-eO-HNT"/>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="E42-BN-hKd">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="pdU-z0-5cG" id="AHg-3Z-m0C"/>
+                                    <outlet property="delegate" destination="pdU-z0-5cG" id="y1H-6d-MOH"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="E42-BN-hKd" secondAttribute="trailing" constant="-20" id="Cjn-k8-5GV"/>
+                            <constraint firstItem="GUF-7r-hlH" firstAttribute="leading" secondItem="VOK-G7-18j" secondAttribute="leading" id="Ewq-KX-AYh"/>
+                            <constraint firstItem="E42-BN-hKd" firstAttribute="leading" secondItem="VOK-G7-18j" secondAttribute="leadingMargin" constant="-20" id="gKD-Rc-ItA"/>
+                            <constraint firstItem="GUF-7r-hlH" firstAttribute="top" secondItem="VOK-G7-18j" secondAttribute="topMargin" id="jNP-lf-Bra"/>
+                            <constraint firstItem="E42-BN-hKd" firstAttribute="top" secondItem="GUF-7r-hlH" secondAttribute="bottom" id="m5l-zI-IfI"/>
+                            <constraint firstAttribute="trailing" secondItem="GUF-7r-hlH" secondAttribute="trailing" id="q1f-5f-nVu"/>
+                            <constraint firstItem="r6g-2f-u3E" firstAttribute="top" secondItem="E42-BN-hKd" secondAttribute="bottom" id="wOT-hz-Ogg"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="buy-v2-3dv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3210" y="-997"/>
         </scene>
     </scenes>
     <resources>

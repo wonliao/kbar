@@ -364,7 +364,9 @@
 		65B7FC2A175756E40000C408 /* kbarCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65B7FC28175756E40000C408 /* kbarCoreData.xcdatamodeld */; };
 		65FC891B177981B800A1CE2B /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 65FC891A177981B800A1CE2B /* blank.png */; };
 		65FDBBC31778462800EDD1EF /* AsyncImageView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FDBBC21778462800EDD1EF /* AsyncImageView2.m */; };
-		BC5592DC1D150B8200C4B648 /* 44524.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DB1D150B8200C4B648 /* 44524.mp3 */; };
+		BC5592DC1D150B8200C4B648 /* 寂寞沙洲冷.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DB1D150B8200C4B648 /* 寂寞沙洲冷.mp3 */; };
+		BC5592DF1D15A6C700C4B648 /* 你不知道的事.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DD1D15A6C700C4B648 /* 你不知道的事.mp3 */; };
+		BC5592E01D15A6C700C4B648 /* 花心.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DE1D15A6C700C4B648 /* 花心.mp3 */; };
 		BF159283169D9D6D00357423 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF159282169D9D6D00357423 /* MapKit.framework */; };
 		BF159285169D9E4C00357423 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF159284169D9E4C00357423 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
@@ -917,7 +919,9 @@
 		65FC891A177981B800A1CE2B /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blank.png; path = images/blank.png; sourceTree = SOURCE_ROOT; };
 		65FDBBC11778462800EDD1EF /* AsyncImageView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView2.h; sourceTree = SOURCE_ROOT; };
 		65FDBBC21778462800EDD1EF /* AsyncImageView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView2.m; sourceTree = SOURCE_ROOT; };
-		BC5592DB1D150B8200C4B648 /* 44524.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 44524.mp3; sourceTree = SOURCE_ROOT; };
+		BC5592DB1D150B8200C4B648 /* 寂寞沙洲冷.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "寂寞沙洲冷.mp3"; sourceTree = SOURCE_ROOT; };
+		BC5592DD1D15A6C700C4B648 /* 你不知道的事.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "你不知道的事.mp3"; sourceTree = SOURCE_ROOT; };
+		BC5592DE1D15A6C700C4B648 /* 花心.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "花心.mp3"; sourceTree = SOURCE_ROOT; };
 		BF159282169D9D6D00357423 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BF159284169D9E4C00357423 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -1755,7 +1759,9 @@
 		BC5592D81D14FBEA00C4B648 /* Song */ = {
 			isa = PBXGroup;
 			children = (
-				BC5592DB1D150B8200C4B648 /* 44524.mp3 */,
+				BC5592DD1D15A6C700C4B648 /* 你不知道的事.mp3 */,
+				BC5592DE1D15A6C700C4B648 /* 花心.mp3 */,
+				BC5592DB1D150B8200C4B648 /* 寂寞沙洲冷.mp3 */,
 			);
 			name = Song;
 			sourceTree = "<group>";
@@ -2047,6 +2053,7 @@
 				47521E6A1754C15100947947 /* close.png in Resources */,
 				47521E761754C15100947947 /* Default-568h@2x.png in Resources */,
 				47521E771754C15100947947 /* Default.png in Resources */,
+				BC5592E01D15A6C700C4B648 /* 花心.mp3 in Resources */,
 				47521E781754C15100947947 /* Default@2x.png in Resources */,
 				47521E9F1754C15100947947 /* gray_btn.png in Resources */,
 				47521EA11754C15100947947 /* kbar_Icon_57x57.png in Resources */,
@@ -2145,6 +2152,7 @@
 				47A32CE51754C6AC001C7419 /* notify.png in Resources */,
 				47A32CE61754C6AC001C7419 /* ranking.png in Resources */,
 				47A32CE71754C6AC001C7419 /* song_order.png in Resources */,
+				BC5592DF1D15A6C700C4B648 /* 你不知道的事.mp3 in Resources */,
 				47A32CF81754C742001C7419 /* menu_icon_2_d.png in Resources */,
 				47A32CF91754C742001C7419 /* menu_icon_2.png in Resources */,
 				47A32CFA1754C742001C7419 /* menu_icon_3_d.png in Resources */,
@@ -2159,7 +2167,7 @@
 				47A32D031754C742001C7419 /* radio_right_down.png in Resources */,
 				47A32D041754C742001C7419 /* radio_right_up.png in Resources */,
 				47A32D051754C742001C7419 /* segcontrol_sel.png in Resources */,
-				BC5592DC1D150B8200C4B648 /* 44524.mp3 in Resources */,
+				BC5592DC1D150B8200C4B648 /* 寂寞沙洲冷.mp3 in Resources */,
 				47A32D061754C742001C7419 /* segcontrol_uns.png in Resources */,
 				47A32D071754C742001C7419 /* ss.png in Resources */,
 				472825011754C7BE00F01981 /* DazFire.png in Resources */,

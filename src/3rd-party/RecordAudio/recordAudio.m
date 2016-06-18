@@ -136,7 +136,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     //[self setUpAndAddAudioAtPath:assetURL2 toComposition:composition with:assetURL1 offset:CMTimeMake(0, 44100)];
     //[self setUpAndAddAudioAtPath:assetURL2 toComposition:composition with:assetURL1 offset:CMTimeMake(44100/10, 44100) setVolume:0.8f ];
 
-    float musicVolume = 0.3f;
+    float musicVolume = 0.3f;   // 音樂音量
 
     // 取得裝置代號
     struct utsname systemInfo;
