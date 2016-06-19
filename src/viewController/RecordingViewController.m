@@ -36,10 +36,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //m_wordpress = [[wordpress alloc] init];
-
-    //[self checkFacebook];
 
     // 設定錄音session
     [self setupAudioSession];
@@ -47,43 +43,16 @@
     // 取得應用程式的代理物件參照
     m_coreData = [[CoreData alloc] init];
 
-    // 載入目前要錄音的資料庫互動類別
-    //[self loadRecordingData];
-
     // // 載入本地端mp3和動態歌詞
     [self loadSong];
-    
-    // 載入動態歌詞
-    //[self loadKscContent];
 
     audioIO_ = [[AudioIO alloc] initWithSamplingRate:44100.0];
-    //[audioIO_ open];
-/*
-    // 開始錄音
-    [self.captureSessionController startRecording];
-*/
+
     // 建立 recordAudio
     m_recordAudio = [[RecordAudio alloc] init];
-/*
-    // 播放音樂
-    [m_recordAudio playMusic: m_mp3];
 
-    // 準備長條圖
-    [self initBarChart];
-    
-    // 粒子特效1
-    effectView1 = [UIEffectDesignerView effectWithFile:@"pitch.ped"];
-    effectView1.layer.zPosition = 201;
-    [self.view addSubview:effectView1];
-    
-    // 粒子特效2
-    effectView2 = [UIEffectDesignerView effectWithFile:@"pitch2.ped"];
-    effectView2.layer.zPosition = 200;
-    [self.view addSubview:effectView2];
-*/
-    // OverlayMenu
+    // 音場設定選單
     [self initOverlayView];
-
 }
 
 - (void)viewDidUnload
@@ -136,7 +105,6 @@
 
     // 停止錄音
     [self.captureSessionController stopRecording];
-    //[self.captureSessionController stopCaptureSession];
 
     // 錄音檔位置
     NSURL *url = (NSURL *)self.captureSessionController.outputFile;
@@ -155,22 +123,26 @@
 
 - (IBAction)playButtonTapped:(id)sender
 {
-    // 錄影
-    [self playVideo];
-
     // 播放合成之後的歌曲
     [m_recordAudio playSong];
 
-    // 重新播放 動態歌詞
+    // 重置動態歌詞
     [lecLayer reset:tmpParser.lrcArray];
-    [self loadKscContent];
     
+    // 檢查是否在MV模式?
+    if(myView.hidden == NO) {
+
+        // 播放錄影
+        [self playVideo];
+    } else {
+        
+        // 播放動態歌詞
+        [self loadKscContent];
+    }
     
     // 設定 播放鈕
     [button2 setTitle:@"停止"];
     [button2 setAction:@selector(stopSongButtonTapped:)];
-    
-
 }
 
 - (IBAction)stopSongButtonTapped:(id)sender
@@ -188,6 +160,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 //退出本頁
 - (IBAction)cancelButtonTapped:(id)sender
 {
@@ -213,6 +186,7 @@
     [self reRecord];
 }
 
+// 錄音
 - (void)reRecord
 {
     [self.captureSessionController resetCaptureSession];
@@ -237,16 +211,6 @@
     [button2 setTitle:@"播放"];
     [button2 setEnabled:NO];
     [button2 setAction:@selector(playButtonTapped:)];
-}
-
-// 發起合唱
-- (IBAction)chorusTapped:(id)sender
-{
-    NSLog(@"upload chorus");
-    
-    [button3 setEnabled:NO];
-    
-    [self uploadSong:YES withChrous:YES];
 }
 
 // 上傳錄音檔至 wordpress
@@ -368,32 +332,6 @@
     m_content = [[NSUserDefaults standardUserDefaults] objectForKey:@"songKsc"];
 
     [self loadKscContent];
-/*
-    // 解析 KSC 檔
-    tmpParser = [[LRCParser alloc] init];
-    [tmpParser parseLRC:m_content];
-    
-    // Layer 處理
-    lecLayer = [[LRCView alloc] initWithFrame:CGRectMake(0, 20, 320, 250)];
-    [lecLayer setLineLayers:tmpParser.lrcArray];
-    
-    [self.view.layer addSublayer:lecLayer];
-    
-    [self playKscContent];
-*/
-}
-
-// 從資料庫中讀取資料
-- (void)loadRecordingData
-{
-    Recording* currentRecording = [m_coreData loadDataFromRecording];
-    if( currentRecording ) {
-
-        m_postId = currentRecording.index;
-        m_songTitle = currentRecording.title;
-        m_mp3 = currentRecording.file;
-        m_content = currentRecording.content;
-    }
 }
 
 // 載入動態歌詞
@@ -409,6 +347,7 @@
 
     [self.view.layer addSublayer:lecLayer];
 
+    // 播放字幕
     [self playKscContent];
 }
 
@@ -579,78 +518,7 @@
         NSLog(@"已登錄facebook!!");
     }
 }
-/*
-// 準備長條圖
-- (void) initBarChart
-{
-    NSMutableArray *timeArray = [[NSMutableArray alloc] init];
 
-    int startTime = 0;
-    int endTime = 0;
-    for( int i= 0; i<[lecLayer.lineLayers count]; i++ ) {
-
-        LRCLineLayer *lrcLineLayer = (LRCLineLayer*)[lecLayer.lineLayers objectAtIndex:i];
-        startTime = lrcLineLayer.startTime;
-        endTime = lrcLineLayer.endTime;
-
-        NSNumber *bTime = [NSNumber numberWithInt:startTime];
-        NSNumber *eTime = [NSNumber numberWithInt:startTime];
-
-        // 逐字時間
-        for( int j=0; j<[lrcLineLayer->lyricsTime count]; j++ ) {
-            
-            NSNumber *time = [lrcLineLayer->lyricsTime objectAtIndex:j];
-
-            eTime = time;
-            NSArray *tempArray = [ [ NSArray alloc ] initWithObjects:bTime,eTime,nil];
-            bTime = eTime;
-            
-            [timeArray addObject: tempArray ];
-        }
-    }
-    
-    // 長條圖陣列
-    NSMutableDictionary *values = [[NSMutableDictionary alloc]init];
-    
-    NSLog(@"timeArray count(%d)", [timeArray count]);
-    int current = 0;
-    int randNum = 20;
-    for( int i=0; i<endTime; i+=10) {
-
-        NSArray *tempArray = [timeArray objectAtIndex:current];
-        int bTime = [[tempArray objectAtIndex:0] intValue];
-        int eTime = [[tempArray objectAtIndex:1] intValue];
-        int value = 0;
-
-        if( i >= bTime ) {
-
-            value = randNum;
-        }
-
-        if( i >= eTime ) {
-
-            current++;
-            value = randNum;
-            randNum+=20;
-            if( randNum >= 100) randNum = 20;
-        }
-
-        [values setValue:[NSString stringWithFormat:@"%d", value] forKey:[NSString stringWithFormat:@"%d", i]];
-    }
-    
-    barChart = [[BarChart alloc] initWithFrame:
-                CGRectMake(0, myView.frame.origin.y+myView.frame.size.height, 320, 100)
-                values:values];
-
-    barChart.barColor  = [UIColor colorWithRed:176.0/255.0
-                                         green:212.0/255.0
-                                          blue:131.0/255.0
-                                         alpha:1];
-
-    barChart.layer.zPosition = 100;
-    [self.view addSubview:barChart];
-}
-*/
 - (IBAction)pauseTapped:(id)sender
 {
     [m_recordAudio pause];

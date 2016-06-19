@@ -77,6 +77,7 @@
     AVCaptureSession *captureSession;
     AVCaptureMovieFileOutput *captureOutput;
     AVPlayer *m_videoPlayer;
+    AVCaptureVideoPreviewLayer *previewLayer;
     
     // OverlayMenu
     QBKOverlayMenuView *_qbkOverlayMenu;
@@ -98,7 +99,6 @@
 - (IBAction)uploadButtonTapped:(id)sender;
 - (IBAction)stopSongButtonTapped:(id)sender;
 - (IBAction)reRecordTapped:(id)sender;
-- (IBAction)chorusTapped:(id)sender;
 - (IBAction)pauseTapped:(id)sender;
 - (IBAction)mvTapped:(id)sender;
 
