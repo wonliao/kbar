@@ -10,13 +10,13 @@
 #import "ASIFormDataRequest.h"
 #import "CaptureSessionController.h"
 #import "FBCoreData.h"
-
+#import "ASScreenRecorder.h"
 
 
 // Private stuff
 @interface RecordingViewController ()
-- (void)uploadFailed:(ASIHTTPRequest *)theRequest;
-- (void)uploadFinished:(ASIHTTPRequest *)theRequest;
+//- (void)uploadFailed:(ASIHTTPRequest *)theRequest;
+//- (void)uploadFinished:(ASIHTTPRequest *)theRequest;
 @property (nonatomic ,strong) IBOutlet CaptureSessionController *captureSessionController;
 @end
 
@@ -36,6 +36,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    imagev = [[UIImageView alloc] init];
+    imagev.frame = myView.layer.bounds;// CGRectMake(0, 0, 320, 320);
+    imagev.backgroundColor=[UIColor orangeColor];
+    [myView addSubview:imagev];
 
     // 設定錄音session
     [self setupAudioSession];
@@ -100,8 +105,14 @@
 {
     [self stopUpdate];
 
-    // 錄影
-    [self stopVideoRecord];
+    // 錄影錄影
+    //[self stopVideoRecord];
+    
+    // 停止螢幕錄影
+    ASScreenRecorder *recorder = [ASScreenRecorder sharedInstance];
+    [recorder stopRecordingWithCompletion:^{
+        NSLog(@"Finished recording");
+    }];
 
     // 停止錄音
     [self.captureSessionController stopRecording];
@@ -179,7 +190,11 @@
     if(myView.hidden == NO) {
         
         // 開始錄影
-        [captureOutput startRecordingToOutputFileURL:fileUrl recordingDelegate:self];
+        //[captureOutput startRecordingToOutputFileURL:fileUrl recordingDelegate:self];
+        
+        // 螢幕錄影
+        ASScreenRecorder *recorder = [ASScreenRecorder sharedInstance];
+        [recorder startRecording];
     }
 
     // 錄音
@@ -213,6 +228,7 @@
     [button2 setAction:@selector(playButtonTapped:)];
 }
 
+/*
 // 上傳錄音檔至 wordpress
 - (IBAction)uploadButtonTapped:(id)sender
 {
@@ -296,32 +312,8 @@
 {
     NSLog(@"Finished uploading %llu bytes of data",[theRequest postLength]);
     NSLog(@"responseString(%@)", [theRequest responseString]);
-/*
-    int attachId = [[theRequest responseString] intValue];
-
-    NSString *query = [NSString stringWithFormat:@"add_chorus.php?post_id=%d&post_name=%@&uid=FB_%@&name=%@&note=%@", attachId, m_songTitle, m_FbCoreData.fbUID, m_FbCoreData.fbName, @"test"];
-    [m_wordpress queryWordpress:query completion:^(NSArray *parsedElements){
-
-        if( [parsedElements count] > 0 ) {
-
-            NSString *result = [[parsedElements objectAtIndex:0] objectForKey:@"RESULT"];
-            NSLog(@"result(%@)", result);
-            if( [result isEqualToString:@"OK"] ) {
-
-                [button3 setEnabled:NO];
-                UIAlertView* alertView = [[UIAlertView alloc]
-                                          initWithTitle:@"提示"
-                                          message:@"新增合唱成功"
-                                          delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-                [alertView show];
-            }
-        }
-    }];
-*/
 }
-
+*/
 
 // 載入本地端mp3和動態歌詞
 -(void)loadSong
@@ -445,21 +437,27 @@
 
             sleep(1);
 
-            // 合成完成
+        // 合成完成
         } else {
-
+/*
             // 按鈕換成上傳
             [button1 setTitle:@"上傳"];
             [button1 setAction:@selector(uploadButtonTapped:)];
 
             // 開啟播放鈕
             [button2 setEnabled:YES];
-
+*/
+            
+            
+            //[self performSelector:@selector(mergeAndSave) withObject:nil afterDelay:.6];
+            
+            //[self mergeAndSave];
+            
             break;
         }
     }
 }
-
+/*
 // 播放 上傳中的進度吧
 - (void) showUploadProgress
 {
@@ -531,15 +529,14 @@
     captureSession = [[AVCaptureSession alloc] init];
 
     // 設定影片品質
-    /*
-    Preset                          3G      3GS     4 back      4 front
-    AVCaptureSessionPresetHigh      400x304	640x480	1280x720    640x480
-    AVCaptureSessionPresetMedium	400x304	480x360	480x360     480x360
-    AVCaptureSessionPresetLow       400x306	192x144	192x144     192x144
-    AVCaptureSessionPreset640x480	NA      640x480	640x480     640x480
-    AVCaptureSessionPreset1280x720	NA      NA      1280x720	NA
-    AVCaptureSessionPresetPhoto     NA      NA      NA          NA
-    */
+    // Preset                          3G      3GS     4 back      4 front
+    // AVCaptureSessionPresetHigh      400x304	640x480	1280x720    640x480
+    // AVCaptureSessionPresetMedium	400x304	480x360	480x360     480x360
+    // AVCaptureSessionPresetLow       400x306	192x144	192x144     192x144
+    // AVCaptureSessionPreset640x480	NA      640x480	640x480     640x480
+    // AVCaptureSessionPreset1280x720	NA      NA      1280x720	NA
+    // AVCaptureSessionPresetPhoto     NA      NA      NA          NA
+ 
     [captureSession setSessionPreset:AVCaptureSessionPresetMedium];
 
     [self checkDevice];
@@ -598,7 +595,6 @@
 
         // 設置前置鏡頭
         AVCaptureDeviceInput *videoInput = [AVCaptureDeviceInput deviceInputWithDevice:frontCamera error:&error];
-
         if (videoInput) {
 
             [captureSession addInput: videoInput];
@@ -626,7 +622,7 @@
 {
     NSLog(@"stopVideoRecord");
     [captureSession stopRunning];
-    [captureOutput stopRecording];
+    //[captureOutput stopRecording];
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput
@@ -648,7 +644,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 		NSLog (@"錄製影片至 %@", outputFileURL);
 	}
 }
-
+*/
 -(void)playVideo
 {
     AVURLAsset *movieAsset	= [AVURLAsset URLAssetWithURL:fileUrl options:nil];
@@ -658,12 +654,12 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     playerLayer.frame = myView.layer.bounds;
     playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [myView.layer addSublayer:playerLayer];
-
+/*
     // 影片因不明原因慢了一秒，暫用快轉一秒的方式解
     CMTime newTime = CMTimeMakeWithSeconds(0, 1);
     newTime.value += 1.5;
     [m_videoPlayer seekToTime: newTime];
-
+*/
     
     [m_videoPlayer play];
 }
@@ -675,21 +671,23 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     if( myView.hidden == YES ) {
 
         // 錄影
-        [self setCaptureConfig];
-        [self outputFile];
-        [self starVideoRecord];
+        //[self setCaptureConfig];
+        //[self outputFile];
+        //[self starVideoRecord];
+        [self setupCaptureSession];
 
         myView.hidden = NO;
         [button5 setTitle:@"普通模式" forState:UIControlStateNormal];
     } else {
 
-        [self stopVideoRecord];
+        //[self stopVideoRecord];
         fileUrl = nil;
         myView.hidden = YES;
         [button5 setTitle:@"MV模式" forState:UIControlStateNormal];
     }
 }
 
+// 音場效果選單
 - (void)initOverlayView
 {
     QBKOverlayMenuViewOffset offset;
@@ -716,7 +714,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     [_qbkOverlayMenu.contentView addSubview:segmentedControl];
 }
 
-
+// 選擇音場效果
 - (void)chooseOne:(id)sender {
     
     int selectIndex = [sender selectedSegmentIndex];
@@ -725,5 +723,208 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     [audioIO_ setReverbArea:selectIndex];
     [self.captureSessionController setReverbArea:selectIndex];
 }
+
+// 捕获到视频的回调函数
+// 將camera視頻轉為image, 讓螢幕擷取 work
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
+{
+    // Create a UIImage from the sample buffer data
+    UIImage *image = [self imageFromSampleBuffer:sampleBuffer];
+    NSData *mData = UIImageJPEGRepresentation(image, 0.5);//这里的mData是NSData对象，后面的0.5代表生成的图片质量
+    //在主线程中执行才会把图片显示出来
+    dispatch_async(dispatch_get_main_queue(), ^{
+       [imagev setImage:[UIImage imageWithData:mData]];
+    });
+    //[myView addSubview:imagev];
+    //NSLog(@"output,mdata:%@",image);
+}
+
+// 把buffer流生成图片
+- (UIImage *) imageFromSampleBuffer:(CMSampleBufferRef) sampleBuffer
+{
+    // Get a CMSampleBuffer's Core Video image buffer for the media data
+    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    // Lock the base address of the pixel buffer
+    CVPixelBufferLockBaseAddress(imageBuffer, 0);
+    
+    // Get the number of bytes per row for the pixel buffer
+    void *baseAddress = CVPixelBufferGetBaseAddress(imageBuffer);
+    
+    // Get the number of bytes per row for the pixel buffer
+    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
+    // Get the pixel buffer width and height
+    size_t width = CVPixelBufferGetWidth(imageBuffer);
+    size_t height = CVPixelBufferGetHeight(imageBuffer);
+    
+    // Create a device-dependent RGB color space
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    // Create a bitmap graphics context with the sample buffer data
+    CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8,
+                                                 bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
+    // Create a Quartz image from the pixel data in the bitmap graphics context
+    CGImageRef quartzImage = CGBitmapContextCreateImage(context);
+    // Unlock the pixel buffer
+    CVPixelBufferUnlockBaseAddress(imageBuffer,0);
+    
+    // Free up the context and color space
+    CGContextRelease(context);
+    CGColorSpaceRelease(colorSpace);
+    
+    // Create an image object from the Quartz image
+    //UIImage *image = [UIImage imageWithCGImage:quartzImage];
+    UIImage *image = [UIImage imageWithCGImage:quartzImage scale:1.0f orientation:UIImageOrientationRight];
+    
+    // Release the Quartz image
+    CGImageRelease(quartzImage);
+    
+    return (image);
+}
+
+// Create and configure a capture session and start it running
+//开启摄像头
+- (void)setupCaptureSession
+{
+    NSError *error = nil;
+    
+    // Create the session
+    AVCaptureSession *session = [[AVCaptureSession alloc] init];
+    
+    // Configure the session to produce lower resolution video frames, if your
+    // processing algorithm can cope. We'll specify medium quality for the
+    // chosen device.
+    session.sessionPreset = AVCaptureSessionPresetMedium;
+    
+    // Find a suitable AVCaptureDevice
+    //AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];//这里默认是使用后置摄像头，你可以改成前置摄像头
+    AVCaptureDevice *device;
+    for(AVCaptureDevice *dev in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo])
+    {
+        //这里修改AVCaptureDevicePositionFront成AVCaptureDevicePositionBack可获取后端摄像头
+        if([dev position]==AVCaptureDevicePositionFront)
+        {
+            device=dev;
+            break;
+        }
+    }
+    // Create a device input with the device and add it to the session.
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device
+                                                                        error:&error];
+    if (!input) {
+        // Handling the error appropriately.
+    }
+    [session addInput:input];
+    
+    // Create a VideoDataOutput and add it to the session
+    AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
+    [session addOutput:output];
+    
+    // Configure your output.
+    dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
+    [output setSampleBufferDelegate:self queue:queue];
+    //dispatch_release(queue);
+    
+    // Specify the pixel format 设置输出的参数
+   	output.videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:
+                            [NSNumber numberWithInt:kCVPixelFormatType_32BGRA], kCVPixelBufferPixelFormatTypeKey,
+                            [NSNumber numberWithInt: 640], (id)kCVPixelBufferWidthKey,
+                            [NSNumber numberWithInt: 480], (id)kCVPixelBufferHeightKey,
+                            nil];
+    
+    AVCaptureVideoPreviewLayer* preLayer = [AVCaptureVideoPreviewLayer layerWithSession: session];
+    //preLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
+    preLayer.frame = CGRectMake(0, 0, 640, 480);
+    preLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    [myView.layer addSublayer:preLayer];
+    // If you wish to cap the frame rate to a known value, such as 15 fps, set
+    // minFrameDuration.
+    output.minFrameDuration = CMTimeMake(1, 15);
+    
+    // Start the session running to start the flow of data
+    [session startRunning];
+    
+    // Assign session to an ivar.
+    //[self setSession:session];
+}
+
+
+/*
+// 合成聲音及影像，並存入相簿
+-(void)mergeAndSave
+{
+    //Create AVMutableComposition Object which will hold our multiple AVMutableCompositionTrack or we can say it will hold our video and audio files.
+    AVMutableComposition* mixComposition = [AVMutableComposition composition];
+    
+    //Now first load your audio file using AVURLAsset. Make sure you give the correct path of your videos.
+    //NSURL *audio_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"output" ofType:@"m4a"]];
+    NSString *urlString = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/output.m4a"];
+    NSURL *audio_url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    audioAsset = [[AVURLAsset alloc]initWithURL:audio_url options:nil];
+    CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero, audioAsset.duration);
+    
+    //Now we are creating the first AVMutableCompositionTrack containing our audio and add it to our AVMutableComposition object.
+    AVMutableCompositionTrack *b_compositionAudioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+    [b_compositionAudioTrack insertTimeRange:audio_timeRange ofTrack:[[audioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+    
+    //Now we will load video file.
+    //NSURL *video_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"screenCapture" ofType:@"mp4"]];
+    NSString *urlString2 = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/screenCapture.mp4"];
+    NSURL *video_url = [NSURL URLWithString:[urlString2 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    videoAsset = [[AVURLAsset alloc]initWithURL:video_url options:nil];
+    CMTimeRange video_timeRange = CMTimeRangeMake(kCMTimeZero,audioAsset.duration);
+    
+    //Now we are creating the second AVMutableCompositionTrack containing our video and add it to our AVMutableComposition object.
+    AVMutableCompositionTrack *a_compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+    [a_compositionVideoTrack insertTimeRange:video_timeRange ofTrack:[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+    
+    //decide the path where you want to store the final video created with audio and video merge.
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = [dirPaths objectAtIndex:0];
+    NSString *outputFilePath = [docsDir stringByAppendingPathComponent:[NSString stringWithFormat:@"FinalVideo.mov"]];
+    NSURL *outputFileUrl = [NSURL fileURLWithPath:outputFilePath];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:outputFilePath])
+        [[NSFileManager defaultManager] removeItemAtPath:outputFilePath error:nil];
+    
+    //Now create an AVAssetExportSession object that will save your final video at specified path.
+    AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
+    _assetExport.outputFileType = @"com.apple.quicktime-movie";
+    _assetExport.outputURL = outputFileUrl;
+    
+    [_assetExport exportAsynchronouslyWithCompletionHandler:
+     ^(void ) {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self exportDidFinish:_assetExport];
+         });
+     }
+     ];
+}
+
+- (void)exportDidFinish:(AVAssetExportSession*)session
+{
+    if(session.status == AVAssetExportSessionStatusCompleted){
+        NSURL *outputURL = session.outputURL;
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:outputURL]) {
+            [library writeVideoAtPathToSavedPhotosAlbum:outputURL
+                                        completionBlock:^(NSURL *assetURL, NSError *error){
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                if (error) {
+                                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Video Saving Failed"  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil, nil];
+                                                    [alert show];
+                                                }else{
+                                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Saved To Photo Album"  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                                                    [alert show];
+                                                    //[self loadMoviePlayer:outputURL];
+                                                }
+                                            });
+                                        }];
+        }
+    }
+    audioAsset = nil;
+    videoAsset = nil;
+    //[activityView stopAnimating];
+    //[activityView setHidden:YES];
+}
+*/
 
 @end

@@ -71,7 +71,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
 
 @implementation RecordAudio
 
-@synthesize m_pLongMusicPlayer, m_mergeDone, startTime, duration;
+@synthesize m_pLongMusicPlayer, m_mergeDone, startTime, duration, videoAsset, audioAsset;
 
 - (id) init
 {
@@ -88,7 +88,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     NSURL *musicURL = [NSURL fileURLWithPath:mp3];
 	m_pLongMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
     //[m_pLongMusicPlayer prepareToPlay];
-    [m_pLongMusicPlayer setVolume: 0.3];    // 音樂音量
+    [m_pLongMusicPlayer setVolume: 0.8];    // 音樂音量
     [m_pLongMusicPlayer play];
 
     // 動態歌詞的起始時間
@@ -228,7 +228,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
         int exportStatus = exporter.status;
         switch (exportStatus) {
             case AVAssetExportSessionStatusFailed:      NSLog (@"AVAssetExportSessionStatusFailed: %@", exporter.error);        break;
-            case AVAssetExportSessionStatusCompleted:   NSLog (@"AVAssetExportSessionStatusCompleted"); [self merge2wavDone];   break;
+            case AVAssetExportSessionStatusCompleted:   NSLog (@"AVAssetExportSessionStatusCompleted"); [self mergeAndSave];    break;
             case AVAssetExportSessionStatusUnknown:     NSLog (@"AVAssetExportSessionStatusUnknown");                           break;
             case AVAssetExportSessionStatusExporting:   NSLog (@"AVAssetExportSessionStatusExporting");                         break;
             case AVAssetExportSessionStatusCancelled:   NSLog (@"AVAssetExportSessionStatusCancelled");                         break;
@@ -282,7 +282,10 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
 - (void) merge2wavDone
 {
     NSLog (@"合成ok");
-    m_mergeDone = YES;
+    //m_mergeDone = YES;
+    
+    //[self mergeAndSave];
+    //[self performSelector:@selector(mergeAndSave) withObject:nil afterDelay:.6];
 }
 
 // 播放合成之後的歌曲
@@ -335,5 +338,90 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
         [m_pLongMusicPlayer play];
     }
 }
+
+
+
+// 合成聲音及影像，並存入相簿
+-(void)mergeAndSave
+{
+    //Create AVMutableComposition Object which will hold our multiple AVMutableCompositionTrack or we can say it will hold our video and audio files.
+    AVMutableComposition* mixComposition = [AVMutableComposition composition];
+    
+    NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
+    
+    //Now first load your audio file using AVURLAsset. Make sure you give the correct path of your videos.
+    //NSURL *audio_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"output" ofType:@"m4a"]];
+    NSURL *audio_url = [[tmpDirURL URLByAppendingPathComponent:@"output"] URLByAppendingPathExtension:@"m4a"];
+    audioAsset = [[AVURLAsset alloc]initWithURL:audio_url options:nil];
+    CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero, audioAsset.duration);
+    
+    //Now we are creating the first AVMutableCompositionTrack containing our audio and add it to our AVMutableComposition object.
+    AVMutableCompositionTrack *b_compositionAudioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+    [b_compositionAudioTrack insertTimeRange:audio_timeRange ofTrack:[[audioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+    
+    //Now we will load video file.
+    //NSURL *video_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"screenCapture" ofType:@"mp4"]];
+    NSURL *video_url = [[tmpDirURL URLByAppendingPathComponent:@"screenCapture"] URLByAppendingPathExtension:@"mp4"];
+    videoAsset = [[AVURLAsset alloc]initWithURL:video_url options:nil];
+    CMTimeRange video_timeRange = CMTimeRangeMake(kCMTimeZero,audioAsset.duration);
+    
+    //Now we are creating the second AVMutableCompositionTrack containing our video and add it to our AVMutableComposition object.
+    AVMutableCompositionTrack *a_compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+    [a_compositionVideoTrack insertTimeRange:video_timeRange ofTrack:[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+    
+    //decide the path where you want to store the final video created with audio and video merge.
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = [dirPaths objectAtIndex:0];
+    NSString *outputFilePath = [docsDir stringByAppendingPathComponent:[NSString stringWithFormat:@"FinalVideo.mov"]];
+    NSURL *outputFileUrl = [NSURL fileURLWithPath:outputFilePath];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:outputFilePath])
+        [[NSFileManager defaultManager] removeItemAtPath:outputFilePath error:nil];
+    
+    //Now create an AVAssetExportSession object that will save your final video at specified path.
+    AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
+    _assetExport.outputFileType = @"com.apple.quicktime-movie";
+    _assetExport.outputURL = outputFileUrl;
+    
+    [_assetExport exportAsynchronouslyWithCompletionHandler:
+     ^(void ) {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self exportDidFinish:_assetExport];
+         });
+     }
+     ];
+}
+
+- (void)exportDidFinish:(AVAssetExportSession*)session
+{
+    if(session.status == AVAssetExportSessionStatusCompleted){
+        NSURL *outputURL = session.outputURL;
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:outputURL]) {
+            [library writeVideoAtPathToSavedPhotosAlbum:outputURL
+                                        completionBlock:^(NSURL *assetURL, NSError *error){
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                if (error) {
+                                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Video Saving Failed"  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil, nil];
+                                                    [alert show];
+                                                }else{
+                                                    /*
+                                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Saved To Photo Album"  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                                                    [alert show];
+                                                     */
+                                                    //[self loadMoviePlayer:outputURL];
+                                                }
+                                            });
+                                        }];
+        }
+    }
+    audioAsset = nil;
+    videoAsset = nil;
+    //[activityView stopAnimating];
+    //[activityView setHidden:YES];
+    
+    NSLog (@"存檔成功");
+    m_mergeDone = YES;
+}
+
 
 @end

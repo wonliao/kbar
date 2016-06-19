@@ -23,15 +23,14 @@
 @class ASIFormDataRequest;
 @class CaptureSessionController;
 
-@interface RecordingViewController : UIViewController <MBProgressHUDDelegate, AVAudioPlayerDelegate, AVCaptureFileOutputRecordingDelegate, QBKOverlayMenuViewDelegate>
+
+@interface RecordingViewController : UIViewController <MBProgressHUDDelegate, AVAudioPlayerDelegate, AVCaptureFileOutputRecordingDelegate, QBKOverlayMenuViewDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
 {
     IBOutlet UIBarButtonItem *button1;
     IBOutlet UIBarButtonItem *button2;
     IBOutlet UIBarButtonItem *button3;
     IBOutlet UIBarButtonItem *button4;
     IBOutlet UIButton *button5;
-    
-    //IBOutlet UILabel *text1;
     IBOutlet UILabel *text2;
 
     // 播放音樂
@@ -81,7 +80,10 @@
     
     // OverlayMenu
     QBKOverlayMenuView *_qbkOverlayMenu;
+    
+    UIImageView *imagev;
 }
+
 
 @property (nonatomic, retain) NSTimer *timer;
 @property (nonatomic, retain) NSString* m_postId;
@@ -96,7 +98,7 @@
 - (IBAction)endButtonTapped:(id)sender;
 - (IBAction)playButtonTapped:(id)sender;
 - (IBAction)cancelButtonTapped:(id)sender;
-- (IBAction)uploadButtonTapped:(id)sender;
+//- (IBAction)uploadButtonTapped:(id)sender;
 - (IBAction)stopSongButtonTapped:(id)sender;
 - (IBAction)reRecordTapped:(id)sender;
 - (IBAction)pauseTapped:(id)sender;
@@ -105,9 +107,8 @@
 
 // 錄影
 @property (nonatomic,retain)IBOutlet UIView *myView;
--(void)setCaptureConfig;
--(void)checkDevice;
--(void)setPreview;
--(void)outputFile;
-
+//-(void)setCaptureConfig;
+//-(void)checkDevice;
+//-(void)setPreview;
+//-(void)outputFile;
 @end

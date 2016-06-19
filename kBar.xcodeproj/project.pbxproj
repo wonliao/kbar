@@ -364,6 +364,8 @@
 		65B7FC2A175756E40000C408 /* kbarCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65B7FC28175756E40000C408 /* kbarCoreData.xcdatamodeld */; };
 		65FC891B177981B800A1CE2B /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 65FC891A177981B800A1CE2B /* blank.png */; };
 		65FDBBC31778462800EDD1EF /* AsyncImageView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FDBBC21778462800EDD1EF /* AsyncImageView2.m */; };
+		BC53D1B11D168C1100FDC2D1 /* ASScreenRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = BC53D1B01D168C1100FDC2D1 /* ASScreenRecorder.m */; };
+		BC53D1B31D16D59400FDC2D1 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC53D1B21D16D59400FDC2D1 /* CoreVideo.framework */; };
 		BC5592DC1D150B8200C4B648 /* 寂寞沙洲冷.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DB1D150B8200C4B648 /* 寂寞沙洲冷.mp3 */; };
 		BC5592DF1D15A6C700C4B648 /* 你不知道的事.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DD1D15A6C700C4B648 /* 你不知道的事.mp3 */; };
 		BC5592E01D15A6C700C4B648 /* 花心.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DE1D15A6C700C4B648 /* 花心.mp3 */; };
@@ -919,6 +921,9 @@
 		65FC891A177981B800A1CE2B /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blank.png; path = images/blank.png; sourceTree = SOURCE_ROOT; };
 		65FDBBC11778462800EDD1EF /* AsyncImageView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView2.h; sourceTree = SOURCE_ROOT; };
 		65FDBBC21778462800EDD1EF /* AsyncImageView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView2.m; sourceTree = SOURCE_ROOT; };
+		BC53D1AF1D168BF400FDC2D1 /* ASScreenRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASScreenRecorder.h; path = "src/3rd-party/ASScreenRecorder/ASScreenRecorder.h"; sourceTree = SOURCE_ROOT; };
+		BC53D1B01D168C1100FDC2D1 /* ASScreenRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASScreenRecorder.m; path = "src/3rd-party/ASScreenRecorder/ASScreenRecorder.m"; sourceTree = SOURCE_ROOT; };
+		BC53D1B21D16D59400FDC2D1 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		BC5592DB1D150B8200C4B648 /* 寂寞沙洲冷.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "寂寞沙洲冷.mp3"; sourceTree = SOURCE_ROOT; };
 		BC5592DD1D15A6C700C4B648 /* 你不知道的事.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "你不知道的事.mp3"; sourceTree = SOURCE_ROOT; };
 		BC5592DE1D15A6C700C4B648 /* 花心.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "花心.mp3"; sourceTree = SOURCE_ROOT; };
@@ -931,8 +936,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2750E77514CDB0DF007727A0 /* CoreGraphics.framework in Frameworks */,
+				65553C3716B1BAAC0093CC35 /* AVFoundation.framework in Frameworks */,
 				65A1CC6316D7ED99002F6005 /* AssetsLibrary.framework in Frameworks */,
 				65B1121A16BE3FBC00DFD7C5 /* MediaPlayer.framework in Frameworks */,
+				6555A41116B2D7D400E61DE2 /* CoreMedia.framework in Frameworks */,
+				BC53D1B31D16D59400FDC2D1 /* CoreVideo.framework in Frameworks */,
 				6571684C16B39810001D5FC2 /* CoreData.framework in Frameworks */,
 				65A61BFD18A2981800D6D425 /* FacebookSDK.framework in Frameworks */,
 				BF159285169D9E4C00357423 /* CoreLocation.framework in Frameworks */,
@@ -940,11 +949,8 @@
 				27FC94E314D105C60000B18C /* QuartzCore.framework in Frameworks */,
 				2750E77114CDB0DF007727A0 /* UIKit.framework in Frameworks */,
 				2750E77314CDB0DF007727A0 /* Foundation.framework in Frameworks */,
-				2750E77514CDB0DF007727A0 /* CoreGraphics.framework in Frameworks */,
 				65553C3316B1BA840093CC35 /* OpenAL.framework in Frameworks */,
 				65553C3516B1BA9C0093CC35 /* AudioToolbox.framework in Frameworks */,
-				65553C3716B1BAAC0093CC35 /* AVFoundation.framework in Frameworks */,
-				6555A41116B2D7D400E61DE2 /* CoreMedia.framework in Frameworks */,
 				650EC89E16B79EA2002F365C /* CoreText.framework in Frameworks */,
 				650EC8A016B79EC9002F365C /* LrcUtil.framework in Frameworks */,
 				6518897116D2AEFF006063BD /* libsqlite3.dylib in Frameworks */,
@@ -987,6 +993,7 @@
 		2750E76F14CDB0DF007727A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BC53D1B21D16D59400FDC2D1 /* CoreVideo.framework */,
 				65A61BFC18A2981800D6D425 /* FacebookSDK.framework */,
 				658F4C1F16C17635009EB5DB /* Accelerate.framework */,
 				6518896B16D2A3A1006063BD /* Accounts.framework */,
@@ -1041,6 +1048,7 @@
 		2750E78914CDB1C7007727A0 /* 3rd-Party */ = {
 			isa = PBXGroup;
 			children = (
+				BC53D1AE1D168BE700FDC2D1 /* ASScreenRecorder */,
 				6557A2C2177A82AE0041A0F6 /* sinaweibo_ios_sdk */,
 				6583FDE01771921600FE0092 /* StyledTableViewCell */,
 				6586B21A175D96B900D5D1DA /* OverlayMenu */,
@@ -1756,6 +1764,15 @@
 			name = DownloadBar;
 			sourceTree = "<group>";
 		};
+		BC53D1AE1D168BE700FDC2D1 /* ASScreenRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				BC53D1B01D168C1100FDC2D1 /* ASScreenRecorder.m */,
+				BC53D1AF1D168BF400FDC2D1 /* ASScreenRecorder.h */,
+			);
+			name = ASScreenRecorder;
+			sourceTree = "<group>";
+		};
 		BC5592D81D14FBEA00C4B648 /* Song */ = {
 			isa = PBXGroup;
 			children = (
@@ -2262,6 +2279,7 @@
 				47CACD941755BC1200B13283 /* ASIFormDataRequest.m in Sources */,
 				47CACD951755BC1200B13283 /* ASIHTTPRequest.m in Sources */,
 				47CACD961755BC1200B13283 /* ASIInputStream.m in Sources */,
+				BC53D1B11D168C1100FDC2D1 /* ASScreenRecorder.m in Sources */,
 				47CACD971755BC1200B13283 /* ASINetworkQueue.m in Sources */,
 				47CACD9A1755BC3C00B13283 /* Reachability.m in Sources */,
 				47CACDB31755CB5700B13283 /* AUOutputBL.cpp in Sources */,
@@ -2448,7 +2466,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -2480,7 +2498,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
@@ -2506,7 +2524,7 @@
 				GCC_PREFIX_HEADER = "kBar-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "kBar-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kbar.kbar;
@@ -2535,7 +2553,7 @@
 				GCC_PREFIX_HEADER = "kBar-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "kBar-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kbar.kbar;

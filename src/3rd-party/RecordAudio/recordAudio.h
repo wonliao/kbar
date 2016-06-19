@@ -7,6 +7,7 @@
 //
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 #import <CoreAudio/CoreAudioTypes.h>
 
 @interface RecordAudio:  NSObject <AVAudioRecorderDelegate> {
@@ -34,6 +35,8 @@
 @property (readwrite) BOOL m_mergeDone;
 @property (readwrite) CFTimeInterval startTime;
 @property (readwrite) float duration;
+@property (nonatomic, retain) AVURLAsset* videoAsset;
+@property (nonatomic, retain) AVURLAsset* audioAsset;
 
 - (void)playMusic:(NSString*)mp3;                                   // 播放音樂
 - (void)stopMusic;                                                  // 停止音樂
@@ -42,5 +45,6 @@
 - (void)stopSong;                                                   // 停止播放合成之後的歌曲
 - (void)getCurrentTime:(double*) currentTime getEndTime:(double*)cEndTime;   // 取得目前播放時間
 - (void)pause;
+- (void)exportDidFinish:(AVAssetExportSession*)session;
 
 @end
