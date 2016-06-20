@@ -18,6 +18,7 @@
 #import "BarChart.h"
 #import "UIEffectDesignerView.h"
 #import "QBKOverlayMenuView.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 
 @class ASIFormDataRequest;
@@ -82,6 +83,7 @@
     QBKOverlayMenuView *_qbkOverlayMenu;
     
     UIImageView *imagev;
+    MPMoviePlayerController *moviePlayer;
 }
 
 

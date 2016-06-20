@@ -374,8 +374,11 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     NSString *docsDir = [dirPaths objectAtIndex:0];
     NSString *outputFilePath = [docsDir stringByAppendingPathComponent:[NSString stringWithFormat:@"FinalVideo.mov"]];
     NSURL *outputFileUrl = [NSURL fileURLWithPath:outputFilePath];
+    
+    // 移除檔案
     if ([[NSFileManager defaultManager] fileExistsAtPath:outputFilePath])
         [[NSFileManager defaultManager] removeItemAtPath:outputFilePath error:nil];
+
     
     //Now create an AVAssetExportSession object that will save your final video at specified path.
     AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];

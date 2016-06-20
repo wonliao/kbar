@@ -37,8 +37,9 @@
 {
     [super viewDidLoad];
     
+    // 錄影
     imagev = [[UIImageView alloc] init];
-    imagev.frame = myView.layer.bounds;// CGRectMake(0, 0, 320, 320);
+    imagev.frame = myView.layer.bounds;
     imagev.backgroundColor=[UIColor orangeColor];
     [myView addSubview:imagev];
 
@@ -105,14 +106,15 @@
 {
     [self stopUpdate];
 
-    // 錄影錄影
-    //[self stopVideoRecord];
-    
-    // 停止螢幕錄影
-    ASScreenRecorder *recorder = [ASScreenRecorder sharedInstance];
-    [recorder stopRecordingWithCompletion:^{
-        NSLog(@"Finished recording");
-    }];
+    // 檢查是否在MV模式?
+    if(myView.hidden == NO) {
+
+        // 停止螢幕錄影
+        ASScreenRecorder *recorder = [ASScreenRecorder sharedInstance];
+        [recorder stopRecordingWithCompletion:^{
+            NSLog(@"Finished recording");
+        }];
+    }
 
     // 停止錄音
     [self.captureSessionController stopRecording];
@@ -120,7 +122,7 @@
     // 錄音檔位置
     NSURL *url = (NSURL *)self.captureSessionController.outputFile;
     NSString *record_file_path = [url path];
-    NSLog(@"record_file_path(%@)", record_file_path);
+    //NSLog(@"record_file_path(%@)", record_file_path);
 
     // 開始合成
     [m_recordAudio merge2wav:m_mp3 withRecord:record_file_path];
@@ -132,21 +134,22 @@
     [button4 setEnabled:YES];
 }
 
+// 按下播放
 - (IBAction)playButtonTapped:(id)sender
 {
-    // 播放合成之後的歌曲
-    [m_recordAudio playSong];
-
-    // 重置動態歌詞
-    [lecLayer reset:tmpParser.lrcArray];
-    
     // 檢查是否在MV模式?
     if(myView.hidden == NO) {
 
         // 播放錄影
         [self playVideo];
     } else {
-        
+
+        // 播放合成之後的歌曲
+        [m_recordAudio playSong];
+
+        // 重置動態歌詞
+        [lecLayer reset:tmpParser.lrcArray];
+
         // 播放動態歌詞
         [self loadKscContent];
     }
@@ -189,9 +192,6 @@
     // 檢查是否在MV模式?
     if(myView.hidden == NO) {
         
-        // 開始錄影
-        //[captureOutput startRecordingToOutputFileURL:fileUrl recordingDelegate:self];
-        
         // 螢幕錄影
         ASScreenRecorder *recorder = [ASScreenRecorder sharedInstance];
         [recorder startRecording];
@@ -228,92 +228,6 @@
     [button2 setAction:@selector(playButtonTapped:)];
 }
 
-/*
-// 上傳錄音檔至 wordpress
-- (IBAction)uploadButtonTapped:(id)sender
-{
-    NSLog(@"uploadSong");
-
-    [self uploadSong:YES withChrous:NO];
-}
-
-- (void)uploadSong:(BOOL)flag withChrous:(BOOL)chorusFlag
-{
-    NSLog(@"已登錄facebook!!");
-    
-    // 播放 合成中的進度吧
-    [self showUploadProgress];
-
-    [request cancel];
- 
-    NSString *urlString = [NSString stringWithFormat:@"http://54.200.150.53/kbar/import/upload.php?uid=%@&pid=%@&title=%@&user_name=%@", m_FbCoreData.fbUID, m_postId, m_songTitle, m_FbCoreData.fbName];
-    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF8)];
-    
-    [self setRequest:[ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]]];
-    [request setTimeOutSeconds:60];
-    
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0
-    [request setShouldContinueWhenAppEntersBackground:YES];
-#endif
-    
-    [request setDelegate:self];
-    [request setDidFailSelector:@selector(uploadFailed:)];
-    
-    if( chorusFlag == NO ) {
-
-        [request setDidFinishSelector:@selector(uploadFinished:)];
-    } else {
-
-        [request setDidFinishSelector:@selector(uploadFinished2:)];
-    }
-    
-    // 上傳 m4a
-    NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
-    NSURL *m4aOutputFileURL = [[tmpDirURL URLByAppendingPathComponent:@"output"] URLByAppendingPathExtension:@"m4a"];
-    NSString* m4aPath = [m4aOutputFileURL path];
-    [request setFile:m4aPath forKey:[NSString stringWithFormat:@"m4a"]];
-    
-    // 上傳 mov
-    if( fileUrl ) {
-
-        NSURL *movOutputFileURL = [[tmpDirURL URLByAppendingPathComponent:@"output"] URLByAppendingPathExtension:@"mov"];
-        NSString* movPath = [movOutputFileURL path];
-        [request setFile:movPath forKey:[NSString stringWithFormat:@"mov"]];
-    }
-
-    [request startAsynchronous];
-    NSLog(@"Uploading data...");
-}
-
-// 上傳錄音檔至 wordpress 失敗
-- (void)uploadFailed:(ASIHTTPRequest *)theRequest
-{
-    NSLog(@"Request failed:\r\n%@",[[theRequest error] localizedDescription]);
-    
-    NSString *message = [[NSString alloc] initWithFormat:
-                         @"上傳失敗:\r\n%@",[[theRequest error] localizedDescription]];
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"系統"
-                          message:message
-                          delegate:nil
-                          cancelButtonTitle:@"知道了"
-                          otherButtonTitles:nil];
-    [alert show];
-}
-
-// 上傳錄音檔至 wordpress 成功
-- (void)uploadFinished:(ASIHTTPRequest *)theRequest
-{
-    NSLog(@"Finished uploading %llu bytes of data",[theRequest postLength]);
-}
-
-// 上傳錄音檔至 wordpress 成功
-- (void)uploadFinished2:(ASIHTTPRequest *)theRequest
-{
-    NSLog(@"Finished uploading %llu bytes of data",[theRequest postLength]);
-    NSLog(@"responseString(%@)", [theRequest responseString]);
-}
-*/
 
 // 載入本地端mp3和動態歌詞
 -(void)loadSong
@@ -358,13 +272,8 @@
     double cEndTime;
     [m_recordAudio getCurrentTime:&cTime getEndTime:&cEndTime];
 
-    // 取得 mic 輸入的音量與頻率
-    //float avg = [self.captureSessionController getAveragePowerLevel];
-    //float frequency = self.captureSessionController->m_frequency;
-
     // 更新動態歌詞
     m_currentTime = (int)(cTime * 1000);
-    
 
     //int score = [lecLayer updateLRCLineLayer:m_currentTime AndAvg:avg AndFrequency:frequency];
     [lecLayer updateLRCLineLayer:m_currentTime];
@@ -383,8 +292,9 @@
             
         }
     }
- 
+*/
 
+/*
     if( [audioIO_ isHeadsetPluggedIn] == YES && self.captureSessionController.isRecording ) {
 
         [audioIO_ start];
@@ -439,229 +349,40 @@
 
         // 合成完成
         } else {
-/*
+
             // 按鈕換成上傳
-            [button1 setTitle:@"上傳"];
-            [button1 setAction:@selector(uploadButtonTapped:)];
+            [button1 setTitle:@"完成"];
+            //[button1 setAction:@selector(uploadButtonTapped:)];
 
             // 開啟播放鈕
             [button2 setEnabled:YES];
-*/
-            
-            
-            //[self performSelector:@selector(mergeAndSave) withObject:nil afterDelay:.6];
-            
-            //[self mergeAndSave];
-            
+
             break;
         }
     }
 }
-/*
-// 播放 上傳中的進度吧
-- (void) showUploadProgress
-{
-    // 設定按鈕狀態
-    [button1 setTitle:@"上傳中"];
 
-    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:HUD];
 
-    // Set determinate mode
-	HUD.mode = MBProgressHUDModeAnnularDeterminate;
-    HUD.dimBackground = YES;
-
-    // Regiser for HUD callbacks so we can remove it from the window at the right time
-    HUD.delegate = self;
-    HUD.labelText = @"上傳中";
-
-    // Show the HUD while the provided method executes in a new thread
-    [HUD showWhileExecuting:@selector(myTask2) onTarget:self withObject:nil animated:YES];
-}
-
-// 檢查是否上傳完成
-- (void)myTask2
-{
-    unsigned long long totalBytesSent = 0.0f;
-    float progress = 0.0f;
-	while( progress < 1.0f || totalBytesSent == 0.0f ) { // 等待上傳中
-
-        // 上傳進度
-        totalBytesSent = request.totalBytesSent;
-        unsigned long long postLength = request.postLength;
-        progress =  (float) totalBytesSent / postLength;
-        NSLog(@"progress(%f) = totalBytesSent(%llu) / postLength(%llu) ", progress, totalBytesSent, postLength);
-        HUD.progress = progress;
-
-        sleep(1);
-    }
-
-    // 按鈕換成上傳
-    [button1 setTitle:@"上傳完成"];
-    [button1 setEnabled:NO];
-}
-
-// 檢查 facebook 登入
-- (void)checkFacebook
-{
-    // 取得 facebook 資料
-    m_FbCoreData = [[FBCoreData alloc] init];
-    [m_FbCoreData load];
-
-    if( [m_FbCoreData.fbUID isEqual:@""] ) {
-
-        NSLog(@"未登錄facebook!!");
-    } else {
-
-        NSLog(@"已登錄facebook!!");
-    }
-}
-
-- (IBAction)pauseTapped:(id)sender
-{
-    [m_recordAudio pause];
-    [m_videoPlayer pause];
-}
-
-// 錄影
--(void)setCaptureConfig
-{
-    captureSession = [[AVCaptureSession alloc] init];
-
-    // 設定影片品質
-    // Preset                          3G      3GS     4 back      4 front
-    // AVCaptureSessionPresetHigh      400x304	640x480	1280x720    640x480
-    // AVCaptureSessionPresetMedium	400x304	480x360	480x360     480x360
-    // AVCaptureSessionPresetLow       400x306	192x144	192x144     192x144
-    // AVCaptureSessionPreset640x480	NA      640x480	640x480     640x480
-    // AVCaptureSessionPreset1280x720	NA      NA      1280x720	NA
-    // AVCaptureSessionPresetPhoto     NA      NA      NA          NA
- 
-    [captureSession setSessionPreset:AVCaptureSessionPresetMedium];
-
-    [self checkDevice];
-    [self setPreview];
-}
-
-// 設定影片輸出檔
--(void)outputFile
-{
-	captureOutput = [[AVCaptureMovieFileOutput alloc] init];
-	if (! fileUrl) {
-
-        NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
-        fileUrl = [[tmpDirURL URLByAppendingPathComponent:@"output"] URLByAppendingPathExtension:@"mov"];
-        filePath = [fileUrl path];
-
-        if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-
-            [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
-        }
-	}
-    NSLog(@"recording to %@",fileUrl);
-
-	[captureSession addOutput:captureOutput];
-}
-
--(void)checkDevice
-{
-    NSError *error = nil;
-    AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithMediaType: AVMediaTypeVideo];
-    if (videoDevice) {
-
-        // 取得前後鏡頭名
-        NSArray *devices = [AVCaptureDevice devices];
-        AVCaptureDevice *frontCamera;
-        AVCaptureDevice *backCamera;
-
-        for (AVCaptureDevice *device in devices) {
-
-            NSLog(@"Device name: %@", [device localizedName]);
-
-            if ([device hasMediaType:AVMediaTypeVideo]) {
-                
-                if ([device position] == AVCaptureDevicePositionBack) {
-
-                    NSLog(@"Device position : back");
-                    backCamera = device;
-                }
-                else {
-
-                    NSLog(@"Device position : front");
-                    frontCamera = device;
-                }
-            }
-        }
-
-        // 設置前置鏡頭
-        AVCaptureDeviceInput *videoInput = [AVCaptureDeviceInput deviceInputWithDevice:frontCamera error:&error];
-        if (videoInput) {
-
-            [captureSession addInput: videoInput];
-        }
-    }
-}
-
--(void)setPreview
-{
-    AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:captureSession];
-	previewLayer.frame = myView.layer.bounds;
-	previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-	[myView.layer addSublayer:previewLayer];
-    myView.clipsToBounds = YES;
-}
-
--(void)starVideoRecord
-{
-    NSLog(@"starVideoRecord");
-    [captureSession startRunning];
-    //[captureOutput startRecordingToOutputFileURL:fileUrl recordingDelegate:self];
-}
-
--(void)stopVideoRecord
-{
-    NSLog(@"stopVideoRecord");
-    [captureSession stopRunning];
-    //[captureOutput stopRecording];
-}
-
-- (void)captureOutput:(AVCaptureFileOutput *)captureOutput
-didStartRecordingToOutputFileAtURL:(NSURL *)fileURL
-      fromConnections:(NSArray *)connections
-{
-	NSLog (@"開始寫入影片至 %@", fileURL);
-}
-
-- (void)captureOutput:(AVCaptureFileOutput *)captureOutput
-didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
-      fromConnections:(NSArray *)connections error:(NSError *)error
-{
-	if (error) {
-
-		NSLog (@"錄影失敗: %@", error);
-	} else {
-
-		NSLog (@"錄製影片至 %@", outputFileURL);
-	}
-}
-*/
 -(void)playVideo
 {
-    AVURLAsset *movieAsset	= [AVURLAsset URLAssetWithURL:fileUrl options:nil];
-    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
-    m_videoPlayer = [AVPlayer playerWithPlayerItem:playerItem];
-    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:m_videoPlayer];
-    playerLayer.frame = myView.layer.bounds;
-    playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    [myView.layer addSublayer:playerLayer];
-/*
-    // 影片因不明原因慢了一秒，暫用快轉一秒的方式解
-    CMTime newTime = CMTimeMakeWithSeconds(0, 1);
-    newTime.value += 1.5;
-    [m_videoPlayer seekToTime: newTime];
-*/
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = [dirPaths objectAtIndex:0];
+    NSString *outputFilePath = [docsDir stringByAppendingPathComponent:[NSString stringWithFormat:@"FinalVideo.mov"]];
+    NSURL *moviePath = [NSURL fileURLWithPath:outputFilePath];
     
-    [m_videoPlayer play];
+    moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:moviePath];
+    moviePlayer.view.hidden = NO;
+    moviePlayer.view.frame = CGRectMake(0, 0, myView.frame.size.width,
+                                        myView.frame.size.height);
+    moviePlayer.view.backgroundColor = [UIColor clearColor];
+    moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
+    moviePlayer.fullscreen = NO;
+    [moviePlayer prepareToPlay];
+    [moviePlayer readyForDisplay];
+    [moviePlayer setControlStyle:MPMovieControlStyleDefault];
+    moviePlayer.shouldAutoplay = NO;
+    [myView addSubview:moviePlayer.view];
+    [myView setHidden:NO];
 }
 
 - (IBAction)mvTapped:(id)sender
@@ -796,7 +517,6 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     session.sessionPreset = AVCaptureSessionPresetMedium;
     
     // Find a suitable AVCaptureDevice
-    //AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];//这里默认是使用后置摄像头，你可以改成前置摄像头
     AVCaptureDevice *device;
     for(AVCaptureDevice *dev in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo])
     {
@@ -842,89 +562,5 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     
     // Start the session running to start the flow of data
     [session startRunning];
-    
-    // Assign session to an ivar.
-    //[self setSession:session];
 }
-
-
-/*
-// 合成聲音及影像，並存入相簿
--(void)mergeAndSave
-{
-    //Create AVMutableComposition Object which will hold our multiple AVMutableCompositionTrack or we can say it will hold our video and audio files.
-    AVMutableComposition* mixComposition = [AVMutableComposition composition];
-    
-    //Now first load your audio file using AVURLAsset. Make sure you give the correct path of your videos.
-    //NSURL *audio_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"output" ofType:@"m4a"]];
-    NSString *urlString = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/output.m4a"];
-    NSURL *audio_url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    audioAsset = [[AVURLAsset alloc]initWithURL:audio_url options:nil];
-    CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero, audioAsset.duration);
-    
-    //Now we are creating the first AVMutableCompositionTrack containing our audio and add it to our AVMutableComposition object.
-    AVMutableCompositionTrack *b_compositionAudioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
-    [b_compositionAudioTrack insertTimeRange:audio_timeRange ofTrack:[[audioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
-    
-    //Now we will load video file.
-    //NSURL *video_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"screenCapture" ofType:@"mp4"]];
-    NSString *urlString2 = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/screenCapture.mp4"];
-    NSURL *video_url = [NSURL URLWithString:[urlString2 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    videoAsset = [[AVURLAsset alloc]initWithURL:video_url options:nil];
-    CMTimeRange video_timeRange = CMTimeRangeMake(kCMTimeZero,audioAsset.duration);
-    
-    //Now we are creating the second AVMutableCompositionTrack containing our video and add it to our AVMutableComposition object.
-    AVMutableCompositionTrack *a_compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
-    [a_compositionVideoTrack insertTimeRange:video_timeRange ofTrack:[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:kCMTimeZero error:nil];
-    
-    //decide the path where you want to store the final video created with audio and video merge.
-    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *docsDir = [dirPaths objectAtIndex:0];
-    NSString *outputFilePath = [docsDir stringByAppendingPathComponent:[NSString stringWithFormat:@"FinalVideo.mov"]];
-    NSURL *outputFileUrl = [NSURL fileURLWithPath:outputFilePath];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:outputFilePath])
-        [[NSFileManager defaultManager] removeItemAtPath:outputFilePath error:nil];
-    
-    //Now create an AVAssetExportSession object that will save your final video at specified path.
-    AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
-    _assetExport.outputFileType = @"com.apple.quicktime-movie";
-    _assetExport.outputURL = outputFileUrl;
-    
-    [_assetExport exportAsynchronouslyWithCompletionHandler:
-     ^(void ) {
-         dispatch_async(dispatch_get_main_queue(), ^{
-             [self exportDidFinish:_assetExport];
-         });
-     }
-     ];
-}
-
-- (void)exportDidFinish:(AVAssetExportSession*)session
-{
-    if(session.status == AVAssetExportSessionStatusCompleted){
-        NSURL *outputURL = session.outputURL;
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:outputURL]) {
-            [library writeVideoAtPathToSavedPhotosAlbum:outputURL
-                                        completionBlock:^(NSURL *assetURL, NSError *error){
-                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                if (error) {
-                                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Video Saving Failed"  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil, nil];
-                                                    [alert show];
-                                                }else{
-                                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Saved To Photo Album"  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-                                                    [alert show];
-                                                    //[self loadMoviePlayer:outputURL];
-                                                }
-                                            });
-                                        }];
-        }
-    }
-    audioAsset = nil;
-    videoAsset = nil;
-    //[activityView stopAnimating];
-    //[activityView setHidden:YES];
-}
-*/
-
 @end
