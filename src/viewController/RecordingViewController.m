@@ -66,6 +66,12 @@
     [super viewDidUnload];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 // 設定錄音session
 - (void)setupAudioSession
 {
@@ -159,20 +165,53 @@
     [button2 setAction:@selector(stopSongButtonTapped:)];
 }
 
+// 按下停止
 - (IBAction)stopSongButtonTapped:(id)sender
 {
-    // 停止播歌
-    [m_recordAudio stopSong];
+    // 檢查是否在MV模式?
+    if(myView.hidden == NO) {
+        
+        
+        for (UIView *subView in myView.subviews)
+        {
+            if (subView.tag == 99)
+            {
+                [subView removeFromSuperview];
+            }
+        }
+
+        
+    } else {
+
+        // 停止播歌
+        [m_recordAudio stopSong];
+    }
     
     // 設定 播放鈕
     [button2 setTitle:@"播放"];
     [button2 setAction:@selector(playButtonTapped:)];
 }
 
-- (void)didReceiveMemoryWarning
+
+- (IBAction)mvTapped:(id)sender
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    if( myView.hidden == YES ) {
+        
+        // 錄影
+        //[self setCaptureConfig];
+        //[self outputFile];
+        //[self starVideoRecord];
+        [self setupCaptureSession];
+        
+        myView.hidden = NO;
+        [button5 setTitle:@"普通模式" forState:UIControlStateNormal];
+    } else {
+        
+        //[self stopVideoRecord];
+        fileUrl = nil;
+        myView.hidden = YES;
+        [button5 setTitle:@"MV模式" forState:UIControlStateNormal];
+    }
 }
 
 //退出本頁
@@ -371,8 +410,9 @@
     NSURL *moviePath = [NSURL fileURLWithPath:outputFilePath];
     
     moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:moviePath];
+    moviePlayer.view.tag = 99;
     moviePlayer.view.hidden = NO;
-    moviePlayer.view.frame = CGRectMake(0, 0, myView.frame.size.width,
+    moviePlayer.view.frame= CGRectMake(0, 0, myView.frame.size.width,
                                         myView.frame.size.height);
     moviePlayer.view.backgroundColor = [UIColor clearColor];
     moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
@@ -383,29 +423,6 @@
     moviePlayer.shouldAutoplay = NO;
     [myView addSubview:moviePlayer.view];
     [myView setHidden:NO];
-}
-
-- (IBAction)mvTapped:(id)sender
-{
-    //[self reRecord];
-
-    if( myView.hidden == YES ) {
-
-        // 錄影
-        //[self setCaptureConfig];
-        //[self outputFile];
-        //[self starVideoRecord];
-        [self setupCaptureSession];
-
-        myView.hidden = NO;
-        [button5 setTitle:@"普通模式" forState:UIControlStateNormal];
-    } else {
-
-        //[self stopVideoRecord];
-        fileUrl = nil;
-        myView.hidden = YES;
-        [button5 setTitle:@"MV模式" forState:UIControlStateNormal];
-    }
 }
 
 // 音場效果選單
@@ -425,7 +442,7 @@
 
     //設定外觀大小與初始選項
     segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
-    segmentedControl.frame = CGRectMake(4.0, 4.0, 260.0, 35.0);
+    segmentedControl.frame= CGRectMake(4.0, 4.0, 260.0, 35.0);
     segmentedControl.selectedSegmentIndex = 1;
 
     //設定所觸發的事件條件與對應事件
