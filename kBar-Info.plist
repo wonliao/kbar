@@ -79,6 +79,8 @@
     <key>LSApplicationQueriesSchemes</key>
     <array>
         <string>fbauth2</string>
+        <string>fbshareextension</string>
+        <string>fbapi</string>
     </array>
 	<key>CFBundleVersion</key>
 	<string>1</string>

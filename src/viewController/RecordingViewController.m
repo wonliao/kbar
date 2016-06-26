@@ -11,6 +11,7 @@
 #import "CaptureSessionController.h"
 #import "FBCoreData.h"
 #import "ASScreenRecorder.h"
+#import <FBSDKShareKit/FBSDKShareKit.h>
 
 // Private stuff
 @interface RecordingViewController ()
@@ -175,7 +176,8 @@
     // 檢查是否在MV模式?
     if(myView.hidden == NO) {
         
-        
+        [moviePlayer stop];
+
         for (UIView *subView in myView.subviews)
         {
             if (subView.tag == 99)
@@ -183,8 +185,6 @@
                 [subView removeFromSuperview];
             }
         }
-
-        
     } else {
 
         // 停止播歌
@@ -402,9 +402,12 @@
             // 存入資料庫
             [self addRecordData:m_postId WithTitle:m_songTitle AndFileName:outputFile AndFile:outputFilePath AndRow:@"1" AndContent:m_content ];
 
+            
+            outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
+            
             // 按鈕換成上傳
-            [button1 setTitle:@"完成"];
-            //[button1 setAction:@selector(uploadButtonTapped:)];
+            [button1 setTitle:@"分享"];
+            [button1 setAction:@selector(saveToCameraRoll)];
 
             // 開啟播放鈕
             [button2 setEnabled:YES];
@@ -424,18 +427,10 @@
 
 -(void)playVideo
 {
-    
-    /*
-    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *docsDir = [dirPaths objectAtIndex:0];
-    NSString *outputFilePath = [docsDir stringByAppendingPathComponent:[NSString stringWithFormat:@"FinalVideo.mov"]];
-    NSURL *moviePath = [NSURL fileURLWithPath:outputFilePath];
-    */
-    
-    NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
-    NSURL *url = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
+    //NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
+    //outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
    
-    moviePlayer = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] player] initWithContentURL:url];
+    moviePlayer = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] player] initWithContentURL:outputFileUrl];
     moviePlayer.view.tag = 99;
     moviePlayer.view.hidden = NO;
     moviePlayer.view.frame= CGRectMake(0, 0, myView.frame.size.width,
@@ -449,6 +444,41 @@
     moviePlayer.shouldAutoplay = YES;
     [myView addSubview:moviePlayer.view];
     [myView setHidden:NO];
+    
+
+}
+
+- (void)saveToCameraRoll
+{
+    NSLog(@"outputFileUrl: %@", outputFileUrl);
+    
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    ALAssetsLibraryWriteVideoCompletionBlock videoWriteCompletionBlock =
+    ^(NSURL *newURL, NSError *error) {
+        if (error) {
+            NSLog( @"Error writing image with metadata to Photo Library: %@", error );
+        } else {
+            NSLog( @"Wrote image with metadata to Photo Library %@", newURL.absoluteString);
+            //url_new  = newURL;
+            
+            FBSDKShareDialog *shareDialog = [[FBSDKShareDialog alloc] init];
+            NSURL *videoURL = newURL;
+            FBSDKShareVideo *video = [[FBSDKShareVideo alloc] init];
+            video.videoURL = videoURL;
+            FBSDKShareVideoContent *content = [[FBSDKShareVideoContent alloc] init];
+            content.video = video;
+            shareDialog.shareContent = content;
+            //shareDialog.delegate = self;
+            shareDialog.fromViewController = self;
+            [shareDialog show];
+        }
+    };
+    
+    if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:outputFileUrl])
+    {
+        [library writeVideoAtPathToSavedPhotosAlbum:outputFileUrl
+                                    completionBlock:videoWriteCompletionBlock];
+    }
 }
 
 // 音場效果選單
@@ -479,8 +509,8 @@
 }
 
 // 選擇音場效果
-- (void)chooseOne:(id)sender {
-    
+- (void)chooseOne:(id)sender
+{
     int selectIndex = [sender selectedSegmentIndex];
     NSLog(@"%@", [sender titleForSegmentAtIndex:selectIndex]);
     

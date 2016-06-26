@@ -262,6 +262,7 @@
     }
 */
     if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"publish_actions"]) {
+        
         // TODO: publish content.
         NSLog(@"facebook has login");
         [self openNewHomePage];

@@ -20,7 +20,7 @@
 #import "QBKOverlayMenuView.h"
 //#import <MediaPlayer/MediaPlayer.h>
 #import "AppDelegate.h"
-
+#import "SocialVideoHelper.h"
 
 @class ASIFormDataRequest;
 @class CaptureSessionController;
@@ -87,6 +87,7 @@
     KKMediaPlayer *moviePlayer;
     
     NSString *outputFile;
+    NSURL *outputFileUrl;
 }
 
 
@@ -106,7 +107,7 @@
 //- (IBAction)uploadButtonTapped:(id)sender;
 - (IBAction)stopSongButtonTapped:(id)sender;
 - (IBAction)reRecordTapped:(id)sender;
-- (IBAction)pauseTapped:(id)sender;
+//- (IBAction)pauseTapped:(id)sender;
 - (IBAction)mvTapped:(id)sender;
 
 

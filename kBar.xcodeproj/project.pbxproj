@@ -371,6 +371,7 @@
 		BC3D4C6D1D1F811900F5B2C8 /* 1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = BC3D4C6C1D1F811900F5B2C8 /* 1.mp4 */; };
 		BC3D4C6F1D1F8BD100F5B2C8 /* kalo_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BC3D4C6E1D1F8BD100F5B2C8 /* kalo_bg.png */; };
 		BC3D4C711D1FAAB800F5B2C8 /* microphone-512.png in Resources */ = {isa = PBXBuildFile; fileRef = BC3D4C701D1FAAB800F5B2C8 /* microphone-512.png */; };
+		BC3D4C731D20352300F5B2C8 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC3D4C721D20352300F5B2C8 /* FBSDKShareKit.framework */; };
 		BC53D1B11D168C1100FDC2D1 /* ASScreenRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = BC53D1B01D168C1100FDC2D1 /* ASScreenRecorder.m */; };
 		BC53D1B31D16D59400FDC2D1 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC53D1B21D16D59400FDC2D1 /* CoreVideo.framework */; };
 		BC5592DC1D150B8200C4B648 /* 寂寞沙洲冷.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DB1D150B8200C4B648 /* 寂寞沙洲冷.mp3 */; };
@@ -940,6 +941,7 @@
 		BC3D4C6C1D1F811900F5B2C8 /* 1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 1.mp4; sourceTree = SOURCE_ROOT; };
 		BC3D4C6E1D1F8BD100F5B2C8 /* kalo_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kalo_bg.png; path = images/kalo_bg.png; sourceTree = SOURCE_ROOT; };
 		BC3D4C701D1FAAB800F5B2C8 /* microphone-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "microphone-512.png"; path = "images/playSong/microphone-512.png"; sourceTree = SOURCE_ROOT; };
+		BC3D4C721D20352300F5B2C8 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		BC53D1AF1D168BF400FDC2D1 /* ASScreenRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASScreenRecorder.h; path = "src/3rd-party/ASScreenRecorder/ASScreenRecorder.h"; sourceTree = SOURCE_ROOT; };
 		BC53D1B01D168C1100FDC2D1 /* ASScreenRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASScreenRecorder.m; path = "src/3rd-party/ASScreenRecorder/ASScreenRecorder.m"; sourceTree = SOURCE_ROOT; };
 		BC53D1B21D16D59400FDC2D1 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -978,6 +980,7 @@
 				65553C3316B1BA840093CC35 /* OpenAL.framework in Frameworks */,
 				65553C3516B1BA9C0093CC35 /* AudioToolbox.framework in Frameworks */,
 				650EC89E16B79EA2002F365C /* CoreText.framework in Frameworks */,
+				BC3D4C731D20352300F5B2C8 /* FBSDKShareKit.framework in Frameworks */,
 				650EC8A016B79EC9002F365C /* LrcUtil.framework in Frameworks */,
 				6518897116D2AEFF006063BD /* libsqlite3.dylib in Frameworks */,
 				65AEDACD16BD1C9000D5BA8A /* libxml2.dylib in Frameworks */,
@@ -1020,6 +1023,7 @@
 		2750E76F14CDB0DF007727A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BC3D4C721D20352300F5B2C8 /* FBSDKShareKit.framework */,
 				BC3D4C621D1F7F4900F5B2C8 /* FBSDKLoginKit.framework */,
 				BC3D4C601D1F7CC400F5B2C8 /* FBSDKCoreKit.framework */,
 				BC53D1B21D16D59400FDC2D1 /* CoreVideo.framework */,
