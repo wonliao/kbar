@@ -11,10 +11,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import "AppDelegate.h"
 
 
 @interface ViewController ()
-@property(nonatomic,strong)MPMoviePlayerController *moviePlayer;
+@property(nonatomic,strong)KKMediaPlayer *moviePlayer;
 @property(nonatomic ,strong)NSTimer *timer;
 @property (weak, nonatomic) IBOutlet UIView *alpaView;
 
@@ -55,7 +56,11 @@
     
     NSURL *url = [NSURL fileURLWithPath:urlStr];
     
-    _moviePlayer = [[MPMoviePlayerController alloc]initWithContentURL:url];
+    //_moviePlayer = [[KKMediaPlayer alloc]initWithContentURL:url];
+    _moviePlayer = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] player] initWithContentURL:url];
+    
+    
+                                  
     //    _moviePlayer.controlStyle = MPMovieControlStyleDefault;
     [_moviePlayer play];
     [_moviePlayer.view setFrame:self.view.bounds];
@@ -89,25 +94,14 @@
     
     self.pageControl.currentPage = 0;
     [self.pageControl addTarget:self action:@selector(pageChanged:) forControlEvents:UIControlEventValueChanged];
-    
-    
+
     [self setupTimer];
 
-    
     // facebook 登入按鈕
-    /*
-    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-    // Optional: Place the button in the center of your view.
-    loginButton.center = self.view.center;
-    [self.view addSubview:loginButton];
-    */
     [self.login
      addTarget:self
      action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    
-    
+
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -289,12 +283,17 @@
     }
 }
 
--(void)openNewHomePage{
+-(void)openNewHomePage
+{
+    [_moviePlayer stop];
+
     // 登入成功，進入新首頁
     NSString *identifier =@"NewHomePage";
     UIViewController *singViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
     singViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:singViewController animated:YES];
+
+    //self.view.window.rootViewController = [self.view.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"NewHomePage"];
 }
 
 @end

@@ -12,7 +12,6 @@
 #import "FBCoreData.h"
 #import "ASScreenRecorder.h"
 
-
 // Private stuff
 @interface RecordingViewController ()
 //- (void)uploadFailed:(ASIHTTPRequest *)theRequest;
@@ -64,6 +63,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -433,10 +433,9 @@
     */
     
     NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
-    NSURL *outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
+    NSURL *url = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
    
-    
-    moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:outputFileUrl];
+    moviePlayer = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] player] initWithContentURL:url];
     moviePlayer.view.tag = 99;
     moviePlayer.view.hidden = NO;
     moviePlayer.view.frame= CGRectMake(0, 0, myView.frame.size.width,
@@ -447,7 +446,7 @@
     [moviePlayer prepareToPlay];
     [moviePlayer readyForDisplay];
     [moviePlayer setControlStyle:MPMovieControlStyleDefault];
-    moviePlayer.shouldAutoplay = NO;
+    moviePlayer.shouldAutoplay = YES;
     [myView addSubview:moviePlayer.view];
     [myView setHidden:NO];
 }

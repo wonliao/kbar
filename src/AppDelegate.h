@@ -8,6 +8,7 @@
 #import "ECSlidingViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "CoreData.h"
+#import "AppDelegate.h"
 #import "KKMediaPlayer.h"
 #import "KKUser.h"
 
@@ -29,7 +30,7 @@
 
 @property (strong, nonatomic) UIWindow      *window;
 @property (strong, nonatomic) CoreData      *m_coreData;
-@property (nonatomic,retain) KKMediaPlayer  *player;
+@property KKMediaPlayer                     *player;
 @property KKUser                            *user;
 
 @property (strong, nonatomic) SinaWeibo *sinaweibo;

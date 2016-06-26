@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@class AppDelegate;
+
+@interface ViewController : UIViewController {
+    // 代理物件的參照
+    AppDelegate* appDelegate;
+}
 
 
 @end

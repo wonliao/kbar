@@ -31,6 +31,7 @@
     
     m_coreData = [[CoreData alloc] init];
     _user = [[KKUser alloc] init];
+    _player = [[KKMediaPlayer alloc] init];
 
     
     return YES;
