@@ -2579,6 +2579,8 @@
 					/Users/wonliao/Downloads/kbar_ios,
 					"$(PROJECT_DIR)",
 				);
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "kBar-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -2609,6 +2611,8 @@
 					/Users/wonliao/Downloads/kbar_ios,
 					"$(PROJECT_DIR)",
 				);
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "kBar-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";

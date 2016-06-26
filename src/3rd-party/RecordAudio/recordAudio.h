@@ -31,6 +31,7 @@
     float duration;
     
     BOOL m_mergeDone;   // 檢查是否合成完成
+    BOOL m_videoFlag;
 }
 
 @property (nonatomic,retain) AVAudioPlayer *m_pLongMusicPlayer;
@@ -42,7 +43,7 @@
 
 - (void)playMusic:(NSString*)mp3;                                   // 播放音樂
 - (void)stopMusic;                                                  // 停止音樂
-- (NSString*)merge2wav:(NSString*)music withRecord:(NSString *)path1;    // 開始合成
+- (NSString*)merge2wav:(NSString*)music withRecord:(NSString *)path1 hasVideo:(BOOL)videoFlag;    // 開始合成
 - (void)playSong;                                                   // 播放合成之後的歌曲
 - (void)stopSong;                                                   // 停止播放合成之後的歌曲
 - (void)getCurrentTime:(double*) currentTime getEndTime:(double*)cEndTime;   // 取得目前播放時間

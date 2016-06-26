@@ -107,9 +107,11 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
 }
 
 // 開始合成
-- (NSString*) merge2wav:(NSString *)mp3 withRecord:(NSString *)path1
+- (NSString*) merge2wav:(NSString *)mp3 withRecord:(NSString *)path1 hasVideo:(BOOL)videoFlag
 {
     NSLog( @"合成 錄音 與 背景音樂");
+    
+    m_videoFlag = videoFlag;
 
     m_mergeDone = NO;
 
@@ -140,7 +142,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     //[self setUpAndAddAudioAtPath:assetURL2 toComposition:composition with:assetURL1 offset:CMTimeMake(0, 44100)];
     //[self setUpAndAddAudioAtPath:assetURL2 toComposition:composition with:assetURL1 offset:CMTimeMake(44100/10, 44100) setVolume:0.8f ];
 
-    float musicVolume = 0.3f;   // 音樂音量
+    float musicVolume = 1.0f;   // 音樂音量
 
     // 取得裝置代號
     struct utsname systemInfo;
@@ -232,7 +234,14 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
         int exportStatus = exporter.status;
         switch (exportStatus) {
             case AVAssetExportSessionStatusFailed:      NSLog (@"AVAssetExportSessionStatusFailed: %@", exporter.error);        break;
-            case AVAssetExportSessionStatusCompleted:   NSLog (@"AVAssetExportSessionStatusCompleted"); [self mergeAndSave];    break;
+            case AVAssetExportSessionStatusCompleted:
+                NSLog (@"AVAssetExportSessionStatusCompleted");
+                if(m_videoFlag == YES) {
+                    [self mergeAndSave];
+                } else {
+                    [self merge2wavDone];
+                }
+                break;
             case AVAssetExportSessionStatusUnknown:     NSLog (@"AVAssetExportSessionStatusUnknown");                           break;
             case AVAssetExportSessionStatusExporting:   NSLog (@"AVAssetExportSessionStatusExporting");                         break;
             case AVAssetExportSessionStatusCancelled:   NSLog (@"AVAssetExportSessionStatusCancelled");                         break;
@@ -288,7 +297,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
 - (void) merge2wavDone
 {
     NSLog (@"合成ok");
-    //m_mergeDone = YES;
+    m_mergeDone = YES;
     
     //[self mergeAndSave];
     //[self performSelector:@selector(mergeAndSave) withObject:nil afterDelay:.6];
@@ -374,12 +383,15 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     //Now we are creating the second AVMutableCompositionTrack containing our video and add it to our AVMutableComposition object.
     AVMutableCompositionTrack *a_compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
     [a_compositionVideoTrack insertTimeRange:video_timeRange ofTrack:[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:kCMTimeZero error:nil];
-    
+    /*
     //decide the path where you want to store the final video created with audio and video merge.
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docsDir = [dirPaths objectAtIndex:0];
     NSString *outputFilePath = [docsDir stringByAppendingPathComponent:[NSString stringWithFormat:@"FinalVideo.mov"]];
     NSURL *outputFileUrl = [NSURL fileURLWithPath:outputFilePath];
+    */
+    NSURL *outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
+    NSString *outputFilePath = outputFileUrl.absoluteString;
     
     // 移除檔案
     if ([[NSFileManager defaultManager] fileExistsAtPath:outputFilePath])

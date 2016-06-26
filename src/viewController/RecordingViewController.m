@@ -131,8 +131,12 @@
     //NSLog(@"record_file_path(%@)", record_file_path);
 
     // 開始合成
-    outputFile = [m_recordAudio merge2wav:m_mp3 withRecord:record_file_path];
-    
+    if(myView.hidden == NO) {
+        outputFile = [m_recordAudio merge2wav:m_mp3 withRecord:record_file_path hasVideo:YES];
+    } else {
+        outputFile = [m_recordAudio merge2wav:m_mp3 withRecord:record_file_path hasVideo:NO];
+    }
+
     // 播放 合成中的進度吧
     [self showProgress];
 
@@ -420,12 +424,19 @@
 
 -(void)playVideo
 {
+    
+    /*
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docsDir = [dirPaths objectAtIndex:0];
     NSString *outputFilePath = [docsDir stringByAppendingPathComponent:[NSString stringWithFormat:@"FinalVideo.mov"]];
     NSURL *moviePath = [NSURL fileURLWithPath:outputFilePath];
+    */
     
-    moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:moviePath];
+    NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
+    NSURL *outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
+   
+    
+    moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:outputFileUrl];
     moviePlayer.view.tag = 99;
     moviePlayer.view.hidden = NO;
     moviePlayer.view.frame= CGRectMake(0, 0, myView.frame.size.width,
