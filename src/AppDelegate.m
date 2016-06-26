@@ -5,7 +5,8 @@
 //
 
 #import "AppDelegate.h"
-#import <FacebookSDK/FacebookSDK.h>
+//#import <FacebookSDK/FacebookSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #import "SinaWeibo.h"
 
@@ -16,12 +17,18 @@
 @synthesize m_coreData;
 @synthesize sinaweibo;
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    /*
     [FBProfilePictureView class];
     [FBSession.activeSession handleDidBecomeActive];
     loginview = [[FBLoginView alloc] init];
-
+    */
+    
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
+    
     m_coreData = [[CoreData alloc] init];
     _user = [[KKUser alloc] init];
 
@@ -57,8 +64,11 @@
   /*
    Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
    */
+    
+    [FBSDKAppEvents activateApp];
 }
 
+/*
 // FBSample logic
 // The native facebook application transitions back to an authenticating application when the user
 // chooses to either log in, or cancel. The url passed to this method contains the token in the
@@ -79,18 +89,13 @@
         
         return [self.sinaweibo handleOpenURL:url];
     } else {
-
+ 
         return [FBSession.activeSession handleOpenURL:url];
     }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-  /*
-   Called when the application is about to terminate.
-   Save data if appropriate.
-   See also applicationDidEnterBackground:.
-   */
 
     [FBSession.activeSession close];
 }
@@ -99,7 +104,17 @@
 {
     return loginview;
 }
+*/
 
+
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation
+            ];
+}
 
 // 傳回這個應用程式目錄底下的Documents子目錄
 - (NSURL *) applicationDocumentsDirectory

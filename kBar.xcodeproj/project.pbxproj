@@ -364,6 +364,12 @@
 		65B7FC2A175756E40000C408 /* kbarCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65B7FC28175756E40000C408 /* kbarCoreData.xcdatamodeld */; };
 		65FC891B177981B800A1CE2B /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 65FC891A177981B800A1CE2B /* blank.png */; };
 		65FDBBC31778462800EDD1EF /* AsyncImageView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FDBBC21778462800EDD1EF /* AsyncImageView2.m */; };
+		BC3D4C5F1D1F795600F5B2C8 /* SocialVideoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4C5E1D1F795600F5B2C8 /* SocialVideoHelper.m */; };
+		BC3D4C611D1F7CC400F5B2C8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC3D4C601D1F7CC400F5B2C8 /* FBSDKCoreKit.framework */; };
+		BC3D4C631D1F7F4900F5B2C8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC3D4C621D1F7F4900F5B2C8 /* FBSDKLoginKit.framework */; };
+		BC3D4C691D1F802200F5B2C8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4C681D1F802200F5B2C8 /* ViewController.m */; };
+		BC3D4C6D1D1F811900F5B2C8 /* 1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = BC3D4C6C1D1F811900F5B2C8 /* 1.mp4 */; };
+		BC3D4C6F1D1F8BD100F5B2C8 /* kalo_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BC3D4C6E1D1F8BD100F5B2C8 /* kalo_bg.png */; };
 		BC53D1B11D168C1100FDC2D1 /* ASScreenRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = BC53D1B01D168C1100FDC2D1 /* ASScreenRecorder.m */; };
 		BC53D1B31D16D59400FDC2D1 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC53D1B21D16D59400FDC2D1 /* CoreVideo.framework */; };
 		BC5592DC1D150B8200C4B648 /* 寂寞沙洲冷.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DB1D150B8200C4B648 /* 寂寞沙洲冷.mp3 */; };
@@ -924,6 +930,14 @@
 		65FC891A177981B800A1CE2B /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blank.png; path = images/blank.png; sourceTree = SOURCE_ROOT; };
 		65FDBBC11778462800EDD1EF /* AsyncImageView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView2.h; sourceTree = SOURCE_ROOT; };
 		65FDBBC21778462800EDD1EF /* AsyncImageView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView2.m; sourceTree = SOURCE_ROOT; };
+		BC3D4C5D1D1F795600F5B2C8 /* SocialVideoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocialVideoHelper.h; path = "src/3rd-party/SocialVideoHelper/SocialVideoHelper.h"; sourceTree = SOURCE_ROOT; };
+		BC3D4C5E1D1F795600F5B2C8 /* SocialVideoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SocialVideoHelper.m; path = "src/3rd-party/SocialVideoHelper/SocialVideoHelper.m"; sourceTree = SOURCE_ROOT; };
+		BC3D4C601D1F7CC400F5B2C8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		BC3D4C621D1F7F4900F5B2C8 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		BC3D4C671D1F802200F5B2C8 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = src/viewController/ViewController.h; sourceTree = SOURCE_ROOT; };
+		BC3D4C681D1F802200F5B2C8 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = src/viewController/ViewController.m; sourceTree = SOURCE_ROOT; };
+		BC3D4C6C1D1F811900F5B2C8 /* 1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 1.mp4; sourceTree = SOURCE_ROOT; };
+		BC3D4C6E1D1F8BD100F5B2C8 /* kalo_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kalo_bg.png; path = images/kalo_bg.png; sourceTree = SOURCE_ROOT; };
 		BC53D1AF1D168BF400FDC2D1 /* ASScreenRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASScreenRecorder.h; path = "src/3rd-party/ASScreenRecorder/ASScreenRecorder.h"; sourceTree = SOURCE_ROOT; };
 		BC53D1B01D168C1100FDC2D1 /* ASScreenRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASScreenRecorder.m; path = "src/3rd-party/ASScreenRecorder/ASScreenRecorder.m"; sourceTree = SOURCE_ROOT; };
 		BC53D1B21D16D59400FDC2D1 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -945,10 +959,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B1121A16BE3FBC00DFD7C5 /* MediaPlayer.framework in Frameworks */,
 				2750E77514CDB0DF007727A0 /* CoreGraphics.framework in Frameworks */,
+				BC3D4C611D1F7CC400F5B2C8 /* FBSDKCoreKit.framework in Frameworks */,
 				65553C3716B1BAAC0093CC35 /* AVFoundation.framework in Frameworks */,
 				65A1CC6316D7ED99002F6005 /* AssetsLibrary.framework in Frameworks */,
-				65B1121A16BE3FBC00DFD7C5 /* MediaPlayer.framework in Frameworks */,
 				6555A41116B2D7D400E61DE2 /* CoreMedia.framework in Frameworks */,
 				BC53D1B31D16D59400FDC2D1 /* CoreVideo.framework in Frameworks */,
 				6571684C16B39810001D5FC2 /* CoreData.framework in Frameworks */,
@@ -974,6 +989,7 @@
 				655CB97816C364C400EB34FF /* CoreAudio.framework in Frameworks */,
 				6518896616D2A361006063BD /* Social.framework in Frameworks */,
 				6518896816D2A376006063BD /* AdSupport.framework in Frameworks */,
+				BC3D4C631D1F7F4900F5B2C8 /* FBSDKLoginKit.framework in Frameworks */,
 				6518896C16D2A3A1006063BD /* Accounts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1002,6 +1018,8 @@
 		2750E76F14CDB0DF007727A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BC3D4C621D1F7F4900F5B2C8 /* FBSDKLoginKit.framework */,
+				BC3D4C601D1F7CC400F5B2C8 /* FBSDKCoreKit.framework */,
 				BC53D1B21D16D59400FDC2D1 /* CoreVideo.framework */,
 				65A61BFC18A2981800D6D425 /* FacebookSDK.framework */,
 				658F4C1F16C17635009EB5DB /* Accelerate.framework */,
@@ -1042,6 +1060,7 @@
 		2750E77714CDB0DF007727A0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BC3D4C6C1D1F811900F5B2C8 /* 1.mp4 */,
 				BC5592D81D14FBEA00C4B648 /* Song */,
 				478F43F01755FB1C00B69D68 /* iPad.storyboard */,
 				478F43F21755FB1C00B69D68 /* iPhone.storyboard */,
@@ -1057,6 +1076,7 @@
 		2750E78914CDB1C7007727A0 /* 3rd-Party */ = {
 			isa = PBXGroup;
 			children = (
+				BC3D4C5C1D1F794500F5B2C8 /* SocialVideoHelper */,
 				BC53D1AE1D168BE700FDC2D1 /* ASScreenRecorder */,
 				6557A2C2177A82AE0041A0F6 /* sinaweibo_ios_sdk */,
 				6583FDE01771921600FE0092 /* StyledTableViewCell */,
@@ -1091,6 +1111,8 @@
 		2750E78A14CDB1CF007727A0 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				BC3D4C671D1F802200F5B2C8 /* ViewController.h */,
+				BC3D4C681D1F802200F5B2C8 /* ViewController.m */,
 				BCE5F36C1D1EE4250097E5BF /* YFJLeftSwipeDeleteTableView.h */,
 				BCE5F36D1D1EE4250097E5BF /* YFJLeftSwipeDeleteTableView.m */,
 				650CB48B17730F41001EA2E0 /* SettingViewController.h */,
@@ -1447,6 +1469,7 @@
 		47CACEAD1755FAC200B13283 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				BC3D4C6E1D1F8BD100F5B2C8 /* kalo_bg.png */,
 				6586B227175D978D00D5D1DA /* OverlayMenu */,
 				659491A8175B164000CC2CD4 /* effect */,
 				BF973EB716B8FD7100CD999B /* playSong */,
@@ -1779,6 +1802,15 @@
 			name = DownloadBar;
 			sourceTree = "<group>";
 		};
+		BC3D4C5C1D1F794500F5B2C8 /* SocialVideoHelper */ = {
+			isa = PBXGroup;
+			children = (
+				BC3D4C5D1D1F795600F5B2C8 /* SocialVideoHelper.h */,
+				BC3D4C5E1D1F795600F5B2C8 /* SocialVideoHelper.m */,
+			);
+			name = SocialVideoHelper;
+			sourceTree = "<group>";
+		};
 		BC53D1AE1D168BE700FDC2D1 /* ASScreenRecorder */ = {
 			isa = PBXGroup;
 			children = (
@@ -2107,6 +2139,7 @@
 				47521ED81754C15100947947 /* score.png in Resources */,
 				47521EE21754C15100947947 /* Title.png in Resources */,
 				47A32C461754C2D6001C7419 /* 4_collections_labels.png in Resources */,
+				BC3D4C6D1D1F811900F5B2C8 /* 1.mp4 in Resources */,
 				47A32C471754C2D6001C7419 /* 5_content_copy.png in Resources */,
 				47A32C481754C2D6001C7419 /* 5_content_discard.png in Resources */,
 				47A32C491754C2D6001C7419 /* 5_content_save.png in Resources */,
@@ -2115,6 +2148,7 @@
 				47A32C581754C346001C7419 /* blueArrow.png in Resources */,
 				47A32C6D1754C553001C7419 /* backward.png in Resources */,
 				47A32C6E1754C553001C7419 /* Bottum.png in Resources */,
+				BC3D4C6F1D1F8BD100F5B2C8 /* kalo_bg.png in Resources */,
 				47A32C6F1754C553001C7419 /* comment_btn.png in Resources */,
 				47A32C701754C553001C7419 /* flower_btn.png in Resources */,
 				47A32C711754C553001C7419 /* follow_btn_2.png in Resources */,
@@ -2303,6 +2337,7 @@
 				47CACDB61755CB5700B13283 /* CACFDictionary.cpp in Sources */,
 				47CACDB71755CB5700B13283 /* CACFNumber.cpp in Sources */,
 				47CACDB81755CB5700B13283 /* CACFString.cpp in Sources */,
+				BC3D4C5F1D1F795600F5B2C8 /* SocialVideoHelper.m in Sources */,
 				47CACDB91755CB5700B13283 /* CAComponentDescription.cpp in Sources */,
 				47CACDBA1755CB5700B13283 /* CADebugMacros.cpp in Sources */,
 				47CACDBB1755CB5700B13283 /* CADebugPrintf.cpp in Sources */,
@@ -2348,6 +2383,7 @@
 				47CACE331755D0C100B13283 /* WeekNewArtistViewController.m in Sources */,
 				47CACE3F1755EC9400B13283 /* NeighborTopViewController.m in Sources */,
 				47CACE471755EDB600B13283 /* GuideViewController.m in Sources */,
+				BC3D4C691D1F802200F5B2C8 /* ViewController.m in Sources */,
 				47CACE481755EDB600B13283 /* InitialSlidingViewController.m in Sources */,
 				47CACE491755EDB600B13283 /* SampleTableViewController.m in Sources */,
 				47CACE551755EEC200B13283 /* LoadingMoreFooterView.m in Sources */,
@@ -2537,6 +2573,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					/Users/wonliao/Downloads/kbar_ios,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "kBar-Prefix.pch";
@@ -2566,6 +2603,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					/Users/wonliao/Downloads/kbar_ios,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "kBar-Prefix.pch";

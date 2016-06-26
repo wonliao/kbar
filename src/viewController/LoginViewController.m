@@ -71,7 +71,7 @@
     [self.view addSubview:loginview];
     [loginview sizeToFit];
     
-    
+/*
     // SinaWeibo login button
     if(appDelegate.sinaweibo == nil) {
         
@@ -98,6 +98,7 @@
         loginButton = [self buttonWithFrame:CGRectMake(80, 350, 150, 44) action:@selector(loginButtonPressed)];
         [loginButton setTitle:login forState:UIControlStateNormal];
     }
+*/
 }
 
 - (void)viewDidUnload {
