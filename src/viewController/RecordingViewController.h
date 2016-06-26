@@ -84,6 +84,8 @@
     
     UIImageView *imagev;
     MPMoviePlayerController *moviePlayer;
+    
+    NSString *outputFile;
 }
 
 

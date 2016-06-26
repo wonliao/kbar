@@ -369,6 +369,9 @@
 		BC5592DC1D150B8200C4B648 /* 寂寞沙洲冷.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DB1D150B8200C4B648 /* 寂寞沙洲冷.mp3 */; };
 		BC5592DF1D15A6C700C4B648 /* 你不知道的事.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DD1D15A6C700C4B648 /* 你不知道的事.mp3 */; };
 		BC5592E01D15A6C700C4B648 /* 花心.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DE1D15A6C700C4B648 /* 花心.mp3 */; };
+		BCCA48881D1C2C6300321F63 /* NewMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCA48871D1C2C6300321F63 /* NewMainViewController.m */; };
+		BCCA488B1D1C370B00321F63 /* MySongListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCA488A1D1C370B00321F63 /* MySongListViewController.m */; };
+		BCE5F36E1D1EE4250097E5BF /* YFJLeftSwipeDeleteTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5F36D1D1EE4250097E5BF /* YFJLeftSwipeDeleteTableView.m */; };
 		BF159283169D9D6D00357423 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF159282169D9D6D00357423 /* MapKit.framework */; };
 		BF159285169D9E4C00357423 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF159284169D9E4C00357423 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
@@ -927,6 +930,12 @@
 		BC5592DB1D150B8200C4B648 /* 寂寞沙洲冷.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "寂寞沙洲冷.mp3"; sourceTree = SOURCE_ROOT; };
 		BC5592DD1D15A6C700C4B648 /* 你不知道的事.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "你不知道的事.mp3"; sourceTree = SOURCE_ROOT; };
 		BC5592DE1D15A6C700C4B648 /* 花心.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "花心.mp3"; sourceTree = SOURCE_ROOT; };
+		BCCA48861D1C2C6300321F63 /* NewMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewMainViewController.h; path = src/viewController/NewMainViewController.h; sourceTree = SOURCE_ROOT; };
+		BCCA48871D1C2C6300321F63 /* NewMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewMainViewController.m; path = src/viewController/NewMainViewController.m; sourceTree = SOURCE_ROOT; };
+		BCCA48891D1C370B00321F63 /* MySongListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MySongListViewController.h; path = src/viewController/MySongListViewController.h; sourceTree = SOURCE_ROOT; };
+		BCCA488A1D1C370B00321F63 /* MySongListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MySongListViewController.m; path = src/viewController/MySongListViewController.m; sourceTree = SOURCE_ROOT; };
+		BCE5F36C1D1EE4250097E5BF /* YFJLeftSwipeDeleteTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YFJLeftSwipeDeleteTableView.h; path = src/viewController/YFJLeftSwipeDeleteTableView.h; sourceTree = SOURCE_ROOT; };
+		BCE5F36D1D1EE4250097E5BF /* YFJLeftSwipeDeleteTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YFJLeftSwipeDeleteTableView.m; path = src/viewController/YFJLeftSwipeDeleteTableView.m; sourceTree = SOURCE_ROOT; };
 		BF159282169D9D6D00357423 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BF159284169D9E4C00357423 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -1082,6 +1091,8 @@
 		2750E78A14CDB1CF007727A0 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				BCE5F36C1D1EE4250097E5BF /* YFJLeftSwipeDeleteTableView.h */,
+				BCE5F36D1D1EE4250097E5BF /* YFJLeftSwipeDeleteTableView.m */,
 				650CB48B17730F41001EA2E0 /* SettingViewController.h */,
 				650CB48C17730F42001EA2E0 /* SettingViewController.m */,
 				47CACE8F1755F57300B13283 /* UnderRightViewController.h */,
@@ -1138,8 +1149,12 @@
 				47521DB81754C12000947947 /* SongDetailViewController.m */,
 				47521DB91754C12000947947 /* SongListViewController.h */,
 				47521DBA1754C12100947947 /* SongListViewController.m */,
+				BCCA48891D1C370B00321F63 /* MySongListViewController.h */,
+				BCCA488A1D1C370B00321F63 /* MySongListViewController.m */,
 				47CACE6C1755F18A00B13283 /* SongMenuViewController.h */,
 				47CACE6D1755F18A00B13283 /* SongMenuViewController.m */,
+				BCCA48861D1C2C6300321F63 /* NewMainViewController.h */,
+				BCCA48871D1C2C6300321F63 /* NewMainViewController.m */,
 			);
 			name = ViewControllers;
 			path = ECSlidingViewController;
@@ -2306,6 +2321,7 @@
 				47CACDE41755CEF500B13283 /* MaleArtistViewController.m in Sources */,
 				47CACDE51755CEF500B13283 /* OrderByArtistViewController.m in Sources */,
 				47CACDF21755CF0300B13283 /* ClassicSongViewController.m in Sources */,
+				BCE5F36E1D1EE4250097E5BF /* YFJLeftSwipeDeleteTableView.m in Sources */,
 				47CACDF31755CF0300B13283 /* DuetSongViewController.m in Sources */,
 				47CACDF41755CF0300B13283 /* HotSongViewController.m in Sources */,
 				47CACDF51755CF0300B13283 /* NewSongViewController.m in Sources */,
@@ -2342,6 +2358,7 @@
 				47CACE681755F0A800B13283 /* RecordingViewController.m in Sources */,
 				47CACE6E1755F18B00B13283 /* PlaySongViewController.m in Sources */,
 				47CACE6F1755F18B00B13283 /* SongMenuViewController.m in Sources */,
+				BCCA48881D1C2C6300321F63 /* NewMainViewController.m in Sources */,
 				47CACE741755F26F00B13283 /* PagePhotosView.m in Sources */,
 				47CACE791755F33200B13283 /* HomeViewController.m in Sources */,
 				47CACE7A1755F33200B13283 /* MenuViewController.m in Sources */,
@@ -2358,6 +2375,7 @@
 				478F440F1755FD4000B69D68 /* ImgPool.m in Sources */,
 				65B7FC2A175756E40000C408 /* kbarCoreData.xcdatamodeld in Sources */,
 				6586B225175D972900D5D1DA /* QBKOverlayMenuView.m in Sources */,
+				BCCA488B1D1C370B00321F63 /* MySongListViewController.m in Sources */,
 				6586B226175D972900D5D1DA /* QBKRootViewController.m in Sources */,
 				4796CF34176AF6A600CD2499 /* KKUser.m in Sources */,
 				476EE417176B23B9001D7E8D /* KKAPI.m in Sources */,

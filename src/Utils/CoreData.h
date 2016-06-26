@@ -51,6 +51,7 @@
 // 錄音 資料庫管理
 - (void) addDataToRecord:(NSString *)index WithTitle:(NSString *)title AndFileName:(NSString *)name AndFile:(NSString *)file AndRow:(NSString *)row AndContent:(NSString *)content;
 - (id) loadDataFromRecord;
+- (void)deleteRecordData:(NSString *)index;
 
 // 錄音歌曲 資料庫管理
 - (BOOL) checkRecordSongList;

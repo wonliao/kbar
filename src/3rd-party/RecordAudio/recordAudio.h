@@ -12,6 +12,8 @@
 
 @interface RecordAudio:  NSObject <AVAudioRecorderDelegate> {
     
+    NSString *outputFileName;
+    
 	//Variables setup for access in the class:
 	NSURL * recordedTmpFile;
 	AVAudioRecorder * recorder;
@@ -40,7 +42,7 @@
 
 - (void)playMusic:(NSString*)mp3;                                   // 播放音樂
 - (void)stopMusic;                                                  // 停止音樂
-- (void)merge2wav:(NSString*)music withRecord:(NSString *)path1;    // 開始合成
+- (NSString*)merge2wav:(NSString*)music withRecord:(NSString *)path1;    // 開始合成
 - (void)playSong;                                                   // 播放合成之後的歌曲
 - (void)stopSong;                                                   // 停止播放合成之後的歌曲
 - (void)getCurrentTime:(double*) currentTime getEndTime:(double*)cEndTime;   // 取得目前播放時間

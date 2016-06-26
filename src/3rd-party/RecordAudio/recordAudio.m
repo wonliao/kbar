@@ -107,7 +107,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
 }
 
 // 開始合成
-- (void) merge2wav:(NSString *)mp3 withRecord:(NSString *)path1
+- (NSString*) merge2wav:(NSString *)mp3 withRecord:(NSString *)path1
 {
     NSLog( @"合成 錄音 與 背景音樂");
 
@@ -116,10 +116,14 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     // 背景音樂檔案路徑
     NSURL *musicURL = [NSURL fileURLWithPath: mp3];
 	NSString* path2 = [musicURL path];
-
+    
+    NSDateFormatter *date = [[NSDateFormatter alloc] init];
+    [date setDateFormat:@"yyyyMMddHHmm"];
+    outputFileName = [date stringFromDate:[NSDate date]];
+    
     // 輸出檔案路徑
     NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
-    NSURL *outputFileURL = [[tmpDirURL URLByAppendingPathComponent:@"output"] URLByAppendingPathExtension:@"m4a"];
+    NSURL *outputFileURL = [[tmpDirURL URLByAppendingPathComponent:outputFileName] URLByAppendingPathExtension:@"m4a"];
     NSString* path3 = [outputFileURL path];
 
     AVMutableComposition *composition = [AVMutableComposition composition];
@@ -236,6 +240,8 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
             default:                                    NSLog (@"didn't get export status");                                    break;
         }
     }];
+    
+    return outputFileName;
 }
 
 // 合成設定
@@ -293,7 +299,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
 {
     // 輸出檔案路徑
     NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
-    NSURL *recordFile = [[tmpDirURL URLByAppendingPathComponent:@"output"] URLByAppendingPathExtension:@"m4a"];
+    NSURL *recordFile = [[tmpDirURL URLByAppendingPathComponent:outputFileName] URLByAppendingPathExtension:@"m4a"];
     NSLog(@"playSong recordFile=> %@", [recordFile path] );
 
     if( !m_pLongMusicPlayer ) {
@@ -351,7 +357,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     
     //Now first load your audio file using AVURLAsset. Make sure you give the correct path of your videos.
     //NSURL *audio_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"output" ofType:@"m4a"]];
-    NSURL *audio_url = [[tmpDirURL URLByAppendingPathComponent:@"output"] URLByAppendingPathExtension:@"m4a"];
+    NSURL *audio_url = [[tmpDirURL URLByAppendingPathComponent:outputFileName] URLByAppendingPathExtension:@"m4a"];
     audioAsset = [[AVURLAsset alloc]initWithURL:audio_url options:nil];
     CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero, audioAsset.duration);
     

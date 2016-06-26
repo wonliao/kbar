@@ -320,11 +320,42 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Record" inManagedObjectContext:[self managedObjectContext]];
     [request setEntity:entity];
 
+    // sort 由新到舊
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"file_name" ascending:NO]; //the key is the attribute you want to sort by
+    [request setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
     NSError* error = nil;
     // 執行存取的指令並且將資料載入returnObjs
     NSMutableArray* returnObjs = [[[self managedObjectContext] executeFetchRequest:request error:&error] mutableCopy];
 
     return returnObjs;
+}
+
+-(void)deleteRecordData:(NSString *)index
+{
+    // 設定從Core Data框架中取出Beverage的Entity
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Record" inManagedObjectContext:[self managedObjectContext]];
+    [request setEntity:entity];
+    
+    NSError* error = nil;
+    // 執行存取的指令並且將資料載入returnObjs
+    NSMutableArray* returnObjs = [[[self managedObjectContext] executeFetchRequest:request error:&error] mutableCopy];
+    
+    // 刪除 index 的資料
+    for( Record* currentRecord in returnObjs ) {
+        
+        if( [currentRecord.index isEqualToString: index] ) {
+            
+            [[self managedObjectContext] deleteObject: currentRecord];
+        }
+    }
+    
+    // 準備將Entity存進Core Data
+    if( ![[self managedObjectContext] save:&error]) {
+        
+        NSLog(@"刪除遇到錯誤");
+    }
 }
 
 - (BOOL) checkRecordSongList

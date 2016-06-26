@@ -131,7 +131,7 @@
     //NSLog(@"record_file_path(%@)", record_file_path);
 
     // 開始合成
-    [m_recordAudio merge2wav:m_mp3 withRecord:record_file_path];
+    outputFile = [m_recordAudio merge2wav:m_mp3 withRecord:record_file_path];
     
     // 播放 合成中的進度吧
     [self showProgress];
@@ -388,6 +388,15 @@
 
         // 合成完成
         } else {
+            
+            
+            // 輸出檔案路徑
+            NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
+            NSURL *outputFileURL = [[tmpDirURL URLByAppendingPathComponent:outputFile] URLByAppendingPathExtension:@"m4a"];
+            NSString* outputFilePath = [outputFileURL path];
+            
+            // 存入資料庫
+            [self addRecordData:m_postId WithTitle:m_songTitle AndFileName:outputFile AndFile:outputFilePath AndRow:@"1" AndContent:m_content ];
 
             // 按鈕換成上傳
             [button1 setTitle:@"完成"];
@@ -401,6 +410,13 @@
     }
 }
 
+// 新增資料庫管理物件準備寫入
+- (void) addRecordData:(NSString *)index WithTitle:(NSString *)title AndFileName:(NSString *)name AndFile:(NSString *)file AndRow:(NSString *)row AndContent:(NSString *)content
+{
+    NSLog(@"新增資料庫管理物件準備寫入");
+    
+    [m_coreData addDataToRecord:index WithTitle:title AndFileName:name AndFile:file AndRow:row AndContent:content];
+}
 
 -(void)playVideo
 {

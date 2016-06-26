@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="11G63" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 4.3">
     <entity name="FBUserInfo" representedClassName="FBUserInfo" syncable="YES">
         <attribute name="fbLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fbName" optional="YES" attributeType="String" syncable="YES"/>
@@ -44,10 +44,10 @@
     </entity>
     <elements>
         <element name="FBUserInfo" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="HomePageData" positionX="160" positionY="192" width="128" height="180"/>
         <element name="Playing" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="Record" positionX="387" positionY="189" width="128" height="150"/>
+        <element name="Record" positionX="387" positionY="189" width="128" height="30"/>
         <element name="Recording" positionX="160" positionY="192" width="128" height="105"/>
         <element name="RecordSongList" positionX="160" positionY="192" width="128" height="60"/>
-        <element name="HomePageData" positionX="160" positionY="192" width="128" height="180"/>
     </elements>
 </model>
