@@ -133,9 +133,9 @@
 
     // 開始合成
     if(myView.hidden == NO) {
-        outputFile = [m_recordAudio merge2wav:m_mp3 withRecord:record_file_path hasVideo:YES];
+        outputFileName = [m_recordAudio merge2wav:m_mp3 withRecord:record_file_path hasVideo:YES];
     } else {
-        outputFile = [m_recordAudio merge2wav:m_mp3 withRecord:record_file_path hasVideo:NO];
+        outputFileName = [m_recordAudio merge2wav:m_mp3 withRecord:record_file_path hasVideo:NO];
     }
 
     // 播放 合成中的進度吧
@@ -396,14 +396,16 @@
             
             // 輸出檔案路徑
             NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
-            NSURL *outputFileURL = [[tmpDirURL URLByAppendingPathComponent:outputFile] URLByAppendingPathExtension:@"m4a"];
+            NSURL *outputFileURL = [[tmpDirURL URLByAppendingPathComponent:outputFileName] URLByAppendingPathExtension:@"m4a"];
             NSString* outputFilePath = [outputFileURL path];
             
             // 存入資料庫
-            [self addRecordData:m_postId WithTitle:m_songTitle AndFileName:outputFile AndFile:outputFilePath AndRow:@"1" AndContent:m_content ];
+            [self addRecordData:m_postId WithTitle:m_songTitle AndFileName:outputFileName AndFile:outputFilePath AndRow:@"1" AndContent:m_content ];
 
             
-            outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
+            //outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
+            outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:outputFileName] URLByAppendingPathExtension:@"mov"];
+            
             
             // 按鈕換成上傳
             [button1 setTitle:@"分享"];
@@ -427,9 +429,6 @@
 
 -(void)playVideo
 {
-    //NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
-    //outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
-   
     moviePlayer = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] player] initWithContentURL:outputFileUrl];
     moviePlayer.view.tag = 99;
     moviePlayer.view.hidden = NO;

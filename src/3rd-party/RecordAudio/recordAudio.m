@@ -361,11 +361,9 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
 {
     //Create AVMutableComposition Object which will hold our multiple AVMutableCompositionTrack or we can say it will hold our video and audio files.
     AVMutableComposition* mixComposition = [AVMutableComposition composition];
-    
     NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
     
     //Now first load your audio file using AVURLAsset. Make sure you give the correct path of your videos.
-    //NSURL *audio_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"output" ofType:@"m4a"]];
     NSURL *audio_url = [[tmpDirURL URLByAppendingPathComponent:outputFileName] URLByAppendingPathExtension:@"m4a"];
     audioAsset = [[AVURLAsset alloc]initWithURL:audio_url options:nil];
     CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero, audioAsset.duration);
@@ -375,7 +373,6 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     [b_compositionAudioTrack insertTimeRange:audio_timeRange ofTrack:[[audioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
     
     //Now we will load video file.
-    //NSURL *video_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"screenCapture" ofType:@"mp4"]];
     NSURL *video_url = [[tmpDirURL URLByAppendingPathComponent:@"screenCapture"] URLByAppendingPathExtension:@"mp4"];
     videoAsset = [[AVURLAsset alloc]initWithURL:video_url options:nil];
     CMTimeRange video_timeRange = CMTimeRangeMake(kCMTimeZero,audioAsset.duration);
@@ -383,20 +380,14 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     //Now we are creating the second AVMutableCompositionTrack containing our video and add it to our AVMutableComposition object.
     AVMutableCompositionTrack *a_compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
     [a_compositionVideoTrack insertTimeRange:video_timeRange ofTrack:[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:kCMTimeZero error:nil];
-    /*
-    //decide the path where you want to store the final video created with audio and video merge.
-    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *docsDir = [dirPaths objectAtIndex:0];
-    NSString *outputFilePath = [docsDir stringByAppendingPathComponent:[NSString stringWithFormat:@"FinalVideo.mov"]];
-    NSURL *outputFileUrl = [NSURL fileURLWithPath:outputFilePath];
-    */
-    NSURL *outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
+
+    //NSURL *outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
+    NSURL *outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:outputFileName] URLByAppendingPathExtension:@"mov"];
     NSString *outputFilePath = outputFileUrl.absoluteString;
     
     // 移除檔案
     if ([[NSFileManager defaultManager] fileExistsAtPath:outputFilePath])
         [[NSFileManager defaultManager] removeItemAtPath:outputFilePath error:nil];
-
     
     //Now create an AVAssetExportSession object that will save your final video at specified path.
     AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];

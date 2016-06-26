@@ -86,7 +86,7 @@
     UIImageView *imagev;
     KKMediaPlayer *moviePlayer;
     
-    NSString *outputFile;
+    NSString *outputFileName;
     NSURL *outputFileUrl;
 }
 
