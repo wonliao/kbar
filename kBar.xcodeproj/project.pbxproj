@@ -370,6 +370,7 @@
 		BC3D4C691D1F802200F5B2C8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4C681D1F802200F5B2C8 /* ViewController.m */; };
 		BC3D4C6D1D1F811900F5B2C8 /* 1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = BC3D4C6C1D1F811900F5B2C8 /* 1.mp4 */; };
 		BC3D4C6F1D1F8BD100F5B2C8 /* kalo_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BC3D4C6E1D1F8BD100F5B2C8 /* kalo_bg.png */; };
+		BC3D4C711D1FAAB800F5B2C8 /* microphone-512.png in Resources */ = {isa = PBXBuildFile; fileRef = BC3D4C701D1FAAB800F5B2C8 /* microphone-512.png */; };
 		BC53D1B11D168C1100FDC2D1 /* ASScreenRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = BC53D1B01D168C1100FDC2D1 /* ASScreenRecorder.m */; };
 		BC53D1B31D16D59400FDC2D1 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC53D1B21D16D59400FDC2D1 /* CoreVideo.framework */; };
 		BC5592DC1D150B8200C4B648 /* 寂寞沙洲冷.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DB1D150B8200C4B648 /* 寂寞沙洲冷.mp3 */; };
@@ -938,6 +939,7 @@
 		BC3D4C681D1F802200F5B2C8 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = src/viewController/ViewController.m; sourceTree = SOURCE_ROOT; };
 		BC3D4C6C1D1F811900F5B2C8 /* 1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 1.mp4; sourceTree = SOURCE_ROOT; };
 		BC3D4C6E1D1F8BD100F5B2C8 /* kalo_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kalo_bg.png; path = images/kalo_bg.png; sourceTree = SOURCE_ROOT; };
+		BC3D4C701D1FAAB800F5B2C8 /* microphone-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "microphone-512.png"; path = "images/playSong/microphone-512.png"; sourceTree = SOURCE_ROOT; };
 		BC53D1AF1D168BF400FDC2D1 /* ASScreenRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASScreenRecorder.h; path = "src/3rd-party/ASScreenRecorder/ASScreenRecorder.h"; sourceTree = SOURCE_ROOT; };
 		BC53D1B01D168C1100FDC2D1 /* ASScreenRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASScreenRecorder.m; path = "src/3rd-party/ASScreenRecorder/ASScreenRecorder.m"; sourceTree = SOURCE_ROOT; };
 		BC53D1B21D16D59400FDC2D1 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -1469,6 +1471,7 @@
 		47CACEAD1755FAC200B13283 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				BC3D4C701D1FAAB800F5B2C8 /* microphone-512.png */,
 				BC3D4C6E1D1F8BD100F5B2C8 /* kalo_bg.png */,
 				6586B227175D978D00D5D1DA /* OverlayMenu */,
 				659491A8175B164000CC2CD4 /* effect */,
@@ -2204,6 +2207,7 @@
 				47A32CCF1754C628001C7419 /* menu_button_pink_down.png in Resources */,
 				47A32CD01754C628001C7419 /* menu_button_pink.png in Resources */,
 				47A32CD11754C628001C7419 /* menu_button_purple_down.png in Resources */,
+				BC3D4C711D1FAAB800F5B2C8 /* microphone-512.png in Resources */,
 				47A32CD21754C628001C7419 /* menu_button_purple.png in Resources */,
 				47A32CD31754C628001C7419 /* menu_button_red_down.png in Resources */,
 				47A32CD41754C628001C7419 /* menu_button_red.png in Resources */,

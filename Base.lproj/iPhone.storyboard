@@ -915,16 +915,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="lgj-eV-SAk" secondAttribute="trailing" id="1C3-Tq-iQH"/>
-                            <constraint firstItem="lgj-eV-SAk" firstAttribute="leading" secondItem="eAK-ax-yQY" secondAttribute="leading" id="HVS-wX-HVD"/>
-                            <constraint firstItem="lya-Bh-FMf" firstAttribute="leading" secondItem="lgj-eV-SAk" secondAttribute="leading" id="QsB-fK-0Ak"/>
-                            <constraint firstItem="lgj-eV-SAk" firstAttribute="top" secondItem="eAK-ax-yQY" secondAttribute="top" id="URW-lR-cE6"/>
-                            <constraint firstItem="lya-Bh-FMf" firstAttribute="trailing" secondItem="lgj-eV-SAk" secondAttribute="trailing" id="Xdt-ir-tH6"/>
-                            <constraint firstItem="lya-Bh-FMf" firstAttribute="bottom" secondItem="zLx-Gx-t7I" secondAttribute="top" id="dmk-sQ-SFe"/>
-                            <constraint firstItem="lya-Bh-FMf" firstAttribute="top" secondItem="lgj-eV-SAk" secondAttribute="bottom" id="hd8-2I-hjp"/>
+                            <constraint firstAttribute="trailing" secondItem="lgj-eV-SAk" secondAttribute="trailing" id="BpD-dj-ssk"/>
+                            <constraint firstItem="lgj-eV-SAk" firstAttribute="top" secondItem="eAK-ax-yQY" secondAttribute="top" id="FTY-Bz-YD8"/>
+                            <constraint firstItem="lya-Bh-FMf" firstAttribute="trailing" secondItem="lgj-eV-SAk" secondAttribute="trailing" id="SqN-sK-7Qh"/>
+                            <constraint firstItem="lya-Bh-FMf" firstAttribute="top" secondItem="lgj-eV-SAk" secondAttribute="bottom" id="Zm5-yU-bNK"/>
+                            <constraint firstItem="lya-Bh-FMf" firstAttribute="leading" secondItem="lgj-eV-SAk" secondAttribute="leading" id="hrR-FK-4Yk"/>
+                            <constraint firstItem="lgj-eV-SAk" firstAttribute="leading" secondItem="eAK-ax-yQY" secondAttribute="leading" id="lc4-so-5pp"/>
+                            <constraint firstItem="lya-Bh-FMf" firstAttribute="bottom" secondItem="zLx-Gx-t7I" secondAttribute="top" id="uoZ-sw-Jd0"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="精采重播" id="aTa-Uu-Fzw"/>
+                    <tabBarItem key="tabBarItem" title="精采重播" image="DazStarIcon.png" id="aTa-Uu-Fzw"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3sB-2d-9Lj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -968,7 +968,7 @@
                             <constraint firstItem="HwV-ms-iLV" firstAttribute="top" secondItem="nQJ-C2-5QF" secondAttribute="bottom" id="zkE-76-pK3"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="點歌台" id="cpB-OL-7Mt"/>
+                    <tabBarItem key="tabBarItem" title="點歌台" image="microphone-512.png" id="cpB-OL-7Mt"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vlc-PM-anH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -977,7 +977,7 @@
         <!--New Main View Controller-->
         <scene sceneID="TKS-UW-g8n">
             <objects>
-                <tabBarController id="9vz-rk-Jo4" customClass="NewMainViewController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="NewHomePage" id="9vz-rk-Jo4" customClass="NewMainViewController" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="joW-83-fIp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2742,6 +2742,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="DazStarIcon.png" width="30" height="29"/>
         <image name="Default.png" width="320" height="480"/>
         <image name="Photo_L.png" width="320" height="320"/>
         <image name="Photo_L_2.png" width="320" height="320"/>
@@ -2756,6 +2757,7 @@
         <image name="menu_button_bg.png" width="236" height="137"/>
         <image name="menu_button_bg_down.png" width="236" height="137"/>
         <image name="menu_icon.png" width="20" height="19"/>
+        <image name="microphone-512.png" width="32" height="32"/>
         <image name="singCanvas1.png" width="320" height="320"/>
         <image name="singCanvas2.png" width="320" height="320"/>
         <image name="song_order.png" width="156" height="68"/>

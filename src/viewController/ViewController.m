@@ -9,6 +9,10 @@
 #import "ViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+
+
 @interface ViewController ()
 @property(nonatomic,strong)MPMoviePlayerController *moviePlayer;
 @property(nonatomic ,strong)NSTimer *timer;
@@ -89,6 +93,21 @@
     
     [self setupTimer];
 
+    
+    // facebook 登入按鈕
+    /*
+    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+    // Optional: Place the button in the center of your view.
+    loginButton.center = self.view.center;
+    [self.view addSubview:loginButton];
+    */
+    [self.login
+     addTarget:self
+     action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -218,6 +237,64 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+// Once the button is clicked, show the login dialog
+-(void)loginButtonClicked
+{
+ 
+/*
+    if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"publish_actions"]) {
+        // TODO: publish content.
+         NSLog(@"has publish");
+    } else {
+      
+    
+        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+        [login
+         logInWithReadPermissions: @[@"public_profile", @"publish_actions"]
+         fromViewController:self
+         handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+             if (error) {
+                 NSLog(@"Process error");
+             } else if (result.isCancelled) {
+                 NSLog(@"Cancelled");
+             } else {
+                 NSLog(@"Logged in");
+                 
+ 
+             }
+         }];
+    }
+*/
+    if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"publish_actions"]) {
+        // TODO: publish content.
+        NSLog(@"facebook has login");
+        [self openNewHomePage];
+    } else {
+
+        FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
+        [loginManager logInWithPublishPermissions:@[@"publish_actions"]
+                               fromViewController:self
+                                          handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+                                              if ([result.declinedPermissions containsObject:@"publish_actions"]) {
+                                                  // TODO: do not request permissions again immediately. Consider providing a NUX
+                                                  // describing  why the app want this permission.
+                                                  NSLog(@"facebook login fail");
+                                              } else {
+                                                  NSLog(@"facebook login success");
+                                                  [self openNewHomePage];
+                                              }
+                                          }];
+    }
+}
+
+-(void)openNewHomePage{
+    // 登入成功，進入新首頁
+    NSString *identifier =@"NewHomePage";
+    UIViewController *singViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
+    singViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentModalViewController:singViewController animated:YES];
 }
 
 @end
