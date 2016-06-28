@@ -9,7 +9,7 @@
 #import "Recording.h"   // 目前要錄音的資料庫互動類別
 #import "ASIFormDataRequest.h"
 #import "CaptureSessionController.h"
-#import "FBCoreData.h"
+//#import "FBCoreData.h"
 #import "ASScreenRecorder.h"
 #import <FBSDKShareKit/FBSDKShareKit.h>
 
@@ -22,7 +22,7 @@
 
 @implementation RecordingViewController
 
-@synthesize timer, request, m_postId, m_songTitle, m_mp3, m_content, HUD, tmpParser, myView;
+@synthesize timer, request, m_songId, m_songTitle, m_playFlag, m_mp3, m_content, m_fileName, m_file, m_isVideo, HUD, tmpParser, myView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,28 +37,40 @@
 {
     [super viewDidLoad];
     
-    // 錄影
-    imagev = [[UIImageView alloc] init];
-    imagev.frame = myView.layer.bounds;
-    imagev.backgroundColor=[UIColor orangeColor];
-    [myView addSubview:imagev];
-
-    // 設定錄音session
-    [self setupAudioSession];
-
     // 取得應用程式的代理物件參照
     m_coreData = [[CoreData alloc] init];
 
     // // 載入本地端mp3和動態歌詞
     [self loadSong];
 
-    audioIO_ = [[AudioIO alloc] initWithSamplingRate:44100.0];
+    // 回放
+    if([m_playFlag isEqualToString:@"YES"]) {
+        
+        myView.hidden = NO;
+        button5.hidden = YES;
+        
+        outputFileUrl = [NSURL URLWithString:[m_file stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [self play];
+    } else {
+        
+        // 錄影
+        imagev = [[UIImageView alloc] init];
+        imagev.frame = myView.layer.bounds;
+        imagev.backgroundColor=[UIColor orangeColor];
+        [myView addSubview:imagev];
 
-    // 建立 recordAudio
-    m_recordAudio = [[RecordAudio alloc] init];
+        // 設定錄音session
+        [self setupAudioSession];
+        
+        
+        audioIO_ = [[AudioIO alloc] initWithSamplingRate:44100.0];
+        
+        // 建立 recordAudio
+        m_recordAudio = [[RecordAudio alloc] init];
 
-    // 音場設定選單
-    [self initOverlayView];
+        // 音場設定選單
+        [self initOverlayView];
+    }
 }
 
 - (void)viewDidUnload
@@ -150,23 +162,48 @@
 {
     // 檢查是否在MV模式?
     if(myView.hidden == NO) {
-
+        
         // 播放錄影
         [self playVideo];
     } else {
-
+        
         // 播放合成之後的歌曲
         [m_recordAudio playSong];
-
+        
         // 重置動態歌詞
         [lecLayer reset:tmpParser.lrcArray];
-
+        
         // 播放動態歌詞
         [self loadKscContent];
     }
     
     // 設定 播放鈕
     [button2 setTitle:@"停止"];
+    [button2 setAction:@selector(stopSongButtonTapped:)];
+}
+
+-(void)play
+{
+    // 檢查是否在MV模式?
+    if([m_isVideo isEqualToString:@"YES"]) {
+
+        // 播放錄影
+        [self playVideo];
+    } else {
+        
+        // 播放合成之後的歌曲
+        [m_recordAudio playSong];
+        
+        // 重置動態歌詞
+        [lecLayer reset:tmpParser.lrcArray];
+        
+        // 播放動態歌詞
+        [self loadKscContent];
+    }
+    
+    // 設定 播放鈕
+    [button2 setTitle:@"停止"];
+    [button2 setEnabled:YES];
     [button2 setAction:@selector(stopSongButtonTapped:)];
 }
 
@@ -202,9 +239,6 @@
     if( myView.hidden == YES ) {
         
         // 錄影
-        //[self setCaptureConfig];
-        //[self outputFile];
-        //[self starVideoRecord];
         [self setupCaptureSession];
         
         myView.hidden = NO;
@@ -275,11 +309,16 @@
 // 載入本地端mp3和動態歌詞
 -(void)loadSong
 {
-    m_postId = [NSString stringWithFormat:@"%d", [[NSUserDefaults standardUserDefaults] integerForKey:@"songId"]];
+    m_playFlag = [[NSUserDefaults standardUserDefaults] stringForKey:@"playFlag"];
+    m_songId = [NSString stringWithFormat:@"%d", [[NSUserDefaults standardUserDefaults] integerForKey:@"songId"]];
     m_songTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"songTitle"];
-    m_mp3 = [[NSBundle mainBundle] pathForResource: m_songTitle ofType: @"mp3"];
     m_content = [[NSUserDefaults standardUserDefaults] objectForKey:@"songKsc"];
+    m_fileName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fileName"];
+    m_file = [[NSUserDefaults standardUserDefaults] objectForKey:@"file"];
+    m_isVideo = [[NSUserDefaults standardUserDefaults] objectForKey:@"isVideo"];
 
+    m_mp3 = [[NSBundle mainBundle] pathForResource: m_songTitle ofType: @"mp3"];
+    
     [self loadKscContent];
 }
 
@@ -389,24 +428,27 @@
         if( m_recordAudio.m_mergeDone == NO ) {
 
             sleep(1);
-
         // 合成完成
         } else {
-            
-            
+
             // 輸出檔案路徑
             NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
             NSURL *outputFileURL = [[tmpDirURL URLByAppendingPathComponent:outputFileName] URLByAppendingPathExtension:@"m4a"];
             NSString* outputFilePath = [outputFileURL path];
-            
-            // 存入資料庫
-            [self addRecordData:m_postId WithTitle:m_songTitle AndFileName:outputFileName AndFile:outputFilePath AndRow:@"1" AndContent:m_content ];
 
-            
-            //outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
-            outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:outputFileName] URLByAppendingPathExtension:@"mov"];
-            
-            
+            // 檢查是否在MV模式?
+            if(myView.hidden == NO) {
+
+                outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:outputFileName] URLByAppendingPathExtension:@"mov"];
+
+                // 存入資料庫
+                [m_coreData addDataToRecord:m_songId WithTitle:m_songTitle AndFileName:outputFileName AndFile:[outputFileUrl absoluteString] AndIsVideo:@"YES" AndContent:m_content];
+            } else {
+                
+                // 存入資料庫
+                [m_coreData addDataToRecord:m_songId WithTitle:m_songTitle AndFileName:outputFileName AndFile:outputFilePath AndIsVideo:@"NO" AndContent:m_content];
+            }
+
             // 按鈕換成上傳
             [button1 setTitle:@"分享"];
             [button1 setAction:@selector(saveToCameraRoll)];
@@ -417,14 +459,6 @@
             break;
         }
     }
-}
-
-// 新增資料庫管理物件準備寫入
-- (void) addRecordData:(NSString *)index WithTitle:(NSString *)title AndFileName:(NSString *)name AndFile:(NSString *)file AndRow:(NSString *)row AndContent:(NSString *)content
-{
-    NSLog(@"新增資料庫管理物件準備寫入");
-    
-    [m_coreData addDataToRecord:index WithTitle:title AndFileName:name AndFile:file AndRow:row AndContent:content];
 }
 
 -(void)playVideo

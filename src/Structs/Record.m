@@ -11,12 +11,13 @@
 
 @implementation Record
 
-@dynamic row;
 @dynamic index;
+@dynamic songId;
 @dynamic title;
-@dynamic file_name;
+@dynamic fileName;
 @dynamic file;
 @dynamic content;
 @dynamic downloaded;
+@dynamic isVideo;
 
 @end

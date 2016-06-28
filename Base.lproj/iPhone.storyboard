@@ -915,20 +915,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="lgj-eV-SAk" secondAttribute="trailing" id="BpD-dj-ssk"/>
-                            <constraint firstItem="lgj-eV-SAk" firstAttribute="top" secondItem="eAK-ax-yQY" secondAttribute="top" id="FTY-Bz-YD8"/>
-                            <constraint firstItem="lya-Bh-FMf" firstAttribute="trailing" secondItem="lgj-eV-SAk" secondAttribute="trailing" id="SqN-sK-7Qh"/>
-                            <constraint firstItem="lya-Bh-FMf" firstAttribute="top" secondItem="lgj-eV-SAk" secondAttribute="bottom" id="Zm5-yU-bNK"/>
-                            <constraint firstItem="lya-Bh-FMf" firstAttribute="leading" secondItem="lgj-eV-SAk" secondAttribute="leading" id="hrR-FK-4Yk"/>
-                            <constraint firstItem="lgj-eV-SAk" firstAttribute="leading" secondItem="eAK-ax-yQY" secondAttribute="leading" id="lc4-so-5pp"/>
-                            <constraint firstItem="lya-Bh-FMf" firstAttribute="bottom" secondItem="zLx-Gx-t7I" secondAttribute="top" id="uoZ-sw-Jd0"/>
+                            <constraint firstItem="lya-Bh-FMf" firstAttribute="leading" secondItem="lgj-eV-SAk" secondAttribute="leading" id="C2H-j2-7HH"/>
+                            <constraint firstAttribute="trailing" secondItem="lgj-eV-SAk" secondAttribute="trailing" id="Cop-O2-6Vb"/>
+                            <constraint firstItem="lya-Bh-FMf" firstAttribute="trailing" secondItem="lgj-eV-SAk" secondAttribute="trailing" id="EPE-Uy-shA"/>
+                            <constraint firstItem="lgj-eV-SAk" firstAttribute="leading" secondItem="eAK-ax-yQY" secondAttribute="leading" id="Rq9-gc-kuv"/>
+                            <constraint firstItem="lya-Bh-FMf" firstAttribute="top" secondItem="lgj-eV-SAk" secondAttribute="bottom" id="X4P-DS-hNS"/>
+                            <constraint firstItem="lya-Bh-FMf" firstAttribute="bottom" secondItem="zLx-Gx-t7I" secondAttribute="top" id="fZL-Lq-bOa"/>
+                            <constraint firstItem="lgj-eV-SAk" firstAttribute="top" secondItem="eAK-ax-yQY" secondAttribute="top" id="zAh-Wn-k9k"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="精采重播" image="DazStarIcon.png" id="aTa-Uu-Fzw"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3sB-2d-9Lj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4659" y="-611"/>
+            <point key="canvasLocation" x="4659" y="-573"/>
         </scene>
         <!--點歌台-->
         <scene sceneID="eoI-mJ-4vP">

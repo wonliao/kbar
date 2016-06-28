@@ -49,16 +49,16 @@
     //[self getDataFromWordpress];
 
     // 設定歌手頭像輪播
-    [self animationImage];
+    //[self animationImage];
 
     // 設定子視窗資料
-    [self setChildView];
+    //[self setChildView];
 
     // 設定花朵數
-    [pagePhotosView setFlower:[m_wpPlayingData.flower intValue]];
+    //[pagePhotosView setFlower:[m_wpPlayingData.flower intValue]];
 
     // 設定關注狀態文字
-    [pagePhotosView setFollowLabel:[m_wpPlayingData.followed boolValue] AndCount:[m_wpPlayingData.follow_count intValue]];
+    //[pagePhotosView setFollowLabel:[m_wpPlayingData.followed boolValue] AndCount:[m_wpPlayingData.follow_count intValue]];
 
     [pagePhotosView setSongData:m_wpPlayingData.post_title with:m_wpPlayingData.singer_name andMp3:m_wpPlayingData.mp3_url];
     

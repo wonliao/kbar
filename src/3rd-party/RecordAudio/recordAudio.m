@@ -237,7 +237,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
             case AVAssetExportSessionStatusCompleted:
                 NSLog (@"AVAssetExportSessionStatusCompleted");
                 if(m_videoFlag == YES) {
-                    [self mergeAndSave];
+                    [self merge2VideoDone];
                 } else {
                     [self merge2wavDone];
                 }
@@ -298,9 +298,6 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
 {
     NSLog (@"合成ok");
     m_mergeDone = YES;
-    
-    //[self mergeAndSave];
-    //[self performSelector:@selector(mergeAndSave) withObject:nil afterDelay:.6];
 }
 
 // 播放合成之後的歌曲
@@ -354,10 +351,8 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     }
 }
 
-
-
 // 合成聲音及影像，並存入相簿
--(void)mergeAndSave
+-(void)merge2VideoDone
 {
     //Create AVMutableComposition Object which will hold our multiple AVMutableCompositionTrack or we can say it will hold our video and audio files.
     AVMutableComposition* mixComposition = [AVMutableComposition composition];
@@ -384,11 +379,11 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     //NSURL *outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:@"FinalVideo"] URLByAppendingPathExtension:@"mov"];
     NSURL *outputFileUrl = [[tmpDirURL URLByAppendingPathComponent:outputFileName] URLByAppendingPathExtension:@"mov"];
     NSString *outputFilePath = outputFileUrl.absoluteString;
-    
+/*
     // 移除檔案
     if ([[NSFileManager defaultManager] fileExistsAtPath:outputFilePath])
         [[NSFileManager defaultManager] removeItemAtPath:outputFilePath error:nil];
-    
+*/
     //Now create an AVAssetExportSession object that will save your final video at specified path.
     AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
     _assetExport.outputFileType = @"com.apple.quicktime-movie";
@@ -416,11 +411,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
                                                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Video Saving Failed"  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil, nil];
                                                     [alert show];
                                                 }else{
-                                                    /*
-                                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Saved To Photo Album"  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-                                                    [alert show];
-                                                     */
-                                                    //[self loadMoviePlayer:outputURL];
+                                                    
                                                 }
                                             });
                                         }];
@@ -428,9 +419,7 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     }
     audioAsset = nil;
     videoAsset = nil;
-    //[activityView stopAnimating];
-    //[activityView setHidden:YES];
-    
+
     NSLog (@"存檔成功");
     m_mergeDone = YES;
 }

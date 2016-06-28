@@ -13,10 +13,10 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AudioIO.h"
 #import "CoreData.h"
-#import "FBCoreData.h"  // fbUserInfo的資料庫互動類別
-#import "wordpress.h"
-#import "BarChart.h"
-#import "UIEffectDesignerView.h"
+//#import "FBCoreData.h"  // fbUserInfo的資料庫互動類別
+//#import "wordpress.h"
+//#import "BarChart.h"
+//#import "UIEffectDesignerView.h"
 #import "QBKOverlayMenuView.h"
 //#import <MediaPlayer/MediaPlayer.h>
 #import "AppDelegate.h"
@@ -36,15 +36,19 @@
     IBOutlet UILabel *text2;
 
     // 播放音樂
-    RecordAudio* m_recordAudio;
+    RecordAudio *m_recordAudio;
 
     // CoreData 物件
     CoreData *m_coreData;
     
-    NSString* m_postId;
-    NSString* m_songTitle;
-    NSString* m_mp3;
-    NSString* m_content;
+    NSString *m_songId;
+    NSString *m_songTitle;
+    NSString *m_playFlag;
+    NSString *m_mp3;
+    NSString *m_content;
+    NSString *m_fileName;
+    NSString *m_file;
+    NSString *m_isVideo;
 
     // 動態歌詞
     NSTimer *timer;
@@ -63,13 +67,13 @@
     int m_totalScore;
     int m_scoreCount;
 
-    FBCoreData *m_FbCoreData;
+    //FBCoreData *m_FbCoreData;
     //wordpress *m_wordpress;
 
     // 長條圖
-    BarChart *barChart;
-    UIEffectDesignerView* effectView1;
-    UIEffectDesignerView* effectView2;
+    //BarChart *barChart;
+    //UIEffectDesignerView* effectView1;
+    //UIEffectDesignerView* effectView2;
     
     // 錄影
     IBOutlet UIView *myView;
@@ -92,10 +96,15 @@
 
 
 @property (nonatomic, retain) NSTimer *timer;
-@property (nonatomic, retain) NSString* m_postId;
+@property (nonatomic, retain) NSString* m_songId;
 @property (nonatomic, retain) NSString* m_songTitle;
+@property (nonatomic, retain) NSString* m_playFlag;
 @property (nonatomic, retain) NSString* m_mp3;
 @property (nonatomic, retain) NSString* m_content;
+@property (nonatomic, retain) NSString* m_fileName;
+@property (nonatomic, retain) NSString* m_file;
+@property (nonatomic, retain) NSString* m_isVideo;
+
 @property (nonatomic, retain) LRCParser *tmpParser;
 @property (strong, nonatomic) MBProgressHUD *HUD;
 @property (retain, nonatomic) ASIFormDataRequest *request;

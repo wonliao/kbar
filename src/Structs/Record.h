@@ -12,12 +12,13 @@
 
 @interface Record : NSManagedObject
 
-@property (nonatomic, retain) NSString * row;
 @property (nonatomic, retain) NSString * index;
+@property (nonatomic, retain) NSString * songId;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * file_name;
+@property (nonatomic, retain) NSString * fileName;
 @property (nonatomic, retain) NSString * file;
 @property (nonatomic, retain) NSString * content;
 @property (nonatomic, retain) NSString * downloaded;
+@property (nonatomic, retain) NSString * isVideo;
 
 @end

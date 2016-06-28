@@ -49,7 +49,7 @@
 - (id) loadDataFromRecording;
 
 // 錄音 資料庫管理
-- (void) addDataToRecord:(NSString *)index WithTitle:(NSString *)title AndFileName:(NSString *)name AndFile:(NSString *)file AndRow:(NSString *)row AndContent:(NSString *)content;
+- (void) addDataToRecord:(NSString *)songId WithTitle:(NSString *)title AndFileName:(NSString *)name AndFile:(NSString *)file AndIsVideo:(NSString *)isVideo AndContent:(NSString *)content;
 - (id) loadDataFromRecord;
 - (void)deleteRecordData:(NSString *)index;
 

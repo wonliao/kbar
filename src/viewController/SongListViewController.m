@@ -137,31 +137,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Record* currentRecord = [self.songTitle objectAtIndex:button.tag];
     if( currentRecord ) {
 
+        NSString *valueToSave = @"NO";
         [[NSUserDefaults standardUserDefaults] setInteger:row.integerValue forKey:@"songId"];
         [[NSUserDefaults standardUserDefaults] setObject:[self.songTitle objectAtIndex:row.intValue] forKey:@"songTitle"];
         [[NSUserDefaults standardUserDefaults] setObject:[self.songKsc objectAtIndex:row.intValue] forKey:@"songKsc"];
+        [[NSUserDefaults standardUserDefaults] setObject:valueToSave forKey:@"playFlag"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-
-        
-        /*
-        NSString* index = currentRecord.index;
-        NSString* title = currentRecord.title;
-        NSString* file_name = currentRecord.file_name;
-        NSString* file = currentRecord.file;
-        NSString* content = currentRecord.content;
-
-        //NSLog( @"index(%@) title(%@) file_name(%@) file(%@) content(%@)", index, title, file_name, file, content );
-
-        // 存入 Recording 資料庫
-        [self addRecordingData:index WithTitle:title AndFile:file AndContent:content];
-        */
     }
 
     NSString *identifier =@"RecordingSong";
     UIViewController *singViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
-
 	singViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    
 	[self presentModalViewController:singViewController animated:YES];
 }
 /*

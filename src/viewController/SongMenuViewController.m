@@ -177,7 +177,7 @@
 
     cell.textLabel.text = [self.sampleItems objectAtIndex:indexPath.row];
     cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
-
+/*
     // 檢查是否已下載
     for( Record* currentRecord in m_recordData ) {
 
@@ -192,7 +192,7 @@
             break;
         }
     }
-
+*/
     // 清除 cell 的下載進度吧
     for (UITableViewCell *view in [cell subviews]) {
 
@@ -258,6 +258,7 @@
 
 - (IBAction)buttonTapped:(id)sender
 {
+/*
     UIButton *button = (UIButton *)sender;
     NSString* text = button.titleLabel.text;
     NSString* row = [NSString stringWithFormat:@"%d", button.tag];
@@ -315,6 +316,7 @@
         // 切換到 RecordingSong 頁面
         [self gotoRecordingSong];
     }
+*/
 }
 
 // 取得　bar 資訊 by row
@@ -387,6 +389,7 @@
 // 從資料庫中讀取資料
 - (int) loadRecordData:(NSString *)fileName
 {
+/*
     NSMutableArray* returnObjs = [m_coreData loadDataFromRecord];
     for( Record* currentRecord in returnObjs ) {
 
@@ -396,13 +399,14 @@
             return currentRecord.row.intValue;
         }
     }
-
+*/
     return nil;
 }
 
 // 從資料庫中讀取資料 by Row
 - (NSArray *) loadRecordDataByRow:(NSString *)row
 {
+/*
     NSMutableArray* returnObjs = [m_coreData loadDataFromRecord];
     for( Record* currentRecord in returnObjs ) {
 
@@ -412,10 +416,10 @@
             return [NSArray arrayWithObjects:currentRecord.index, currentRecord.title, currentRecord.file_name, currentRecord.file, currentRecord.content, nil];
         }
     }
-
+*/
     return nil;
 }
-
+/*
 // 新增資料庫管理物件準備寫入
 - (void) addRecordData:(NSString *)index WithTitle:(NSString *)title AndFileName:(NSString *)name AndFile:(NSString *)file AndRow:(NSString *)row AndContent:(NSString *)content
 {
@@ -423,10 +427,12 @@
 
     [m_coreData addDataToRecord:index WithTitle:title AndFileName:name AndFile:file AndRow:row AndContent:content];
 }
+*/
 
 // 更新資料庫中的資料
 - (void) updateRecordDataByRow:(NSString *)row
 {
+/*
     // 設定從Core Data框架中取出Beverage的Entity
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Record" inManagedObjectContext:[m_coreData managedObjectContext]];
@@ -448,6 +454,7 @@
             }
         }
     }
+*/
 }
 
 // 新增資料庫管理物件準備寫入
@@ -457,7 +464,7 @@
 
     [m_coreData addDataToRecording:index WithTitle:title AndFile:file AndContent:content];
 }
-
+/*
 // 從 wordpress 取得下載資料
 - (NSString*) getSongFromWordpress:(NSString *)index WithTitle:(NSString *)title AndRow:(NSString *)row
 {
@@ -495,6 +502,7 @@
 
     return @"";
 }
+*/
 // 點歌台
 - (IBAction)orderSong:(id)sender
 {

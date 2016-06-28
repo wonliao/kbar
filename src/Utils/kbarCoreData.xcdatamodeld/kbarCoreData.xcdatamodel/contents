@@ -28,9 +28,10 @@
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="downloaded" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="file" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="file_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="index" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="row" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isVideo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="songId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Recording" representedClassName="Recording" syncable="YES">
@@ -46,7 +47,7 @@
         <element name="FBUserInfo" positionX="160" positionY="192" width="128" height="105"/>
         <element name="HomePageData" positionX="160" positionY="192" width="128" height="180"/>
         <element name="Playing" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="Record" positionX="387" positionY="189" width="128" height="30"/>
+        <element name="Record" positionX="387" positionY="189" width="128" height="165"/>
         <element name="Recording" positionX="160" positionY="192" width="128" height="105"/>
         <element name="RecordSongList" positionX="160" positionY="192" width="128" height="60"/>
     </elements>

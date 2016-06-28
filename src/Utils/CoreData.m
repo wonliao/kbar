@@ -276,7 +276,7 @@
 }
 
 // 新增資料庫管理物件準備寫入
-- (void) addDataToRecord:(NSString *)index WithTitle:(NSString *)title AndFileName:(NSString *)name AndFile:(NSString *)file AndRow:(NSString *)row AndContent:(NSString *)content
+- (void) addDataToRecord:(NSString *)songId WithTitle:(NSString *)title AndFileName:(NSString *)name AndFile:(NSString *)file AndIsVideo:(NSString *)isVideo AndContent:(NSString *)content
 {
     // 設定從Core Data框架中取出Beverage的Entity
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
@@ -286,7 +286,7 @@
     NSError* error = nil;
     // 執行存取的指令並且將資料載入returnObjs
     NSMutableArray* returnObjs = [[[self managedObjectContext] executeFetchRequest:request error:&error] mutableCopy];
-
+/*
     // 刪除 index 重覆的資料
     for( Record* currentRecord in returnObjs ) {
 
@@ -295,16 +295,20 @@
             [[self managedObjectContext] deleteObject: currentRecord];
         }
     }
-
+*/
+    
+    NSUInteger index = [returnObjs count] + 1;
+    
     // 新增一個entity
     Record *record = (Record*)[NSEntityDescription insertNewObjectForEntityForName:@"Record" inManagedObjectContext:[self managedObjectContext]];
-    record.row = row;
-    record.index = index;
+    record.index = [NSString stringWithFormat:@"%ul",  index];
+    record.songId = songId;
     record.title = title;
-    record.file_name = name;
+    record.fileName = name;
     record.file = file;
     record.content = content;
     record.downloaded = @"NO";
+    record.isVideo = isVideo;
 
     // 準備將Entity存進Core Data
     if( ![[self managedObjectContext] save:&error]) {
@@ -321,7 +325,7 @@
     [request setEntity:entity];
 
     // sort 由新到舊
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"file_name" ascending:NO]; //the key is the attribute you want to sort by
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"fileName" ascending:NO]; //the key is the attribute you want to sort by
     [request setSortDescriptors:[NSArray arrayWithObject:sort]];
     
     NSError* error = nil;
