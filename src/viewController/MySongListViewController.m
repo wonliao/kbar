@@ -189,7 +189,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:currentRecord.isVideo forKey:@"isVideo"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            NSString *identifier =@"RecordingSong";
+            NSString *identifier =@"PlayRecordingSong";
             UIViewController *singViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
             singViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
             [self presentModalViewController:singViewController animated:YES];
@@ -197,29 +197,6 @@
             break;
         }
     }
-    
-/*
-    Record* currentRecord = [m_recordData objectAtIndex:button.tag];
-    //Record* currentRecord = [self.songTitle objectAtIndex:button.tag];
-    if( currentRecord ) {
-
-        NSString *playFlag = @"YES";
-        [[NSUserDefaults standardUserDefaults] setObject:playFlag forKey:@"playFlag"];
-        //[[NSUserDefaults standardUserDefaults] setObject:currentRecord.index forKey:@"index"];
-        [[NSUserDefaults standardUserDefaults] setObject:currentRecord.songId forKey:@"songId"];
-        [[NSUserDefaults standardUserDefaults] setObject:currentRecord.title forKey:@"songTitle"];
-        [[NSUserDefaults standardUserDefaults] setObject:currentRecord.content forKey:@"songKsc"];
-        [[NSUserDefaults standardUserDefaults] setObject:currentRecord.fileName forKey:@"fileName"];
-        [[NSUserDefaults standardUserDefaults] setObject:currentRecord.file forKey:@"file"];
-        [[NSUserDefaults standardUserDefaults] setObject:currentRecord.isVideo forKey:@"isVideo"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    
-    NSString *identifier =@"RecordingSong";
-    UIViewController *singViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
-    singViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    [self presentModalViewController:singViewController animated:YES];
- */
 }
 
 // 從資料庫中讀取資料
@@ -228,23 +205,6 @@
      NSMutableArray* returnObjs = [m_coreData loadDataFromRecord];
      return returnObjs;
 }
-
-/*
--(void) deleteRecordDataByIndex:(NSString *)index
-{
-    
-    [m_coreData deleteRecordData:index];
-}
-*/
-/*
-// 新增資料庫管理物件準備寫入
-- (void) addRecordingData:(NSString *)index WithTitle:(NSString *)title AndFile:(NSString *)file AndContent:(NSString *)content
-{
-    NSLog(@"新增資料庫管理物件準備寫入");
- 
-    [m_coreData addDataToRecording:index WithTitle:title AndFile:file AndContent:content];
-}
-*/
 
 
 

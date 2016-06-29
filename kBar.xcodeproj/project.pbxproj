@@ -372,6 +372,7 @@
 		BC3D4C6F1D1F8BD100F5B2C8 /* kalo_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BC3D4C6E1D1F8BD100F5B2C8 /* kalo_bg.png */; };
 		BC3D4C711D1FAAB800F5B2C8 /* microphone-512.png in Resources */ = {isa = PBXBuildFile; fileRef = BC3D4C701D1FAAB800F5B2C8 /* microphone-512.png */; };
 		BC3D4C731D20352300F5B2C8 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC3D4C721D20352300F5B2C8 /* FBSDKShareKit.framework */; };
+		BC5189171D24830C00AE03B8 /* PlayRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5189161D24830C00AE03B8 /* PlayRecordingViewController.m */; };
 		BC53D1B11D168C1100FDC2D1 /* ASScreenRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = BC53D1B01D168C1100FDC2D1 /* ASScreenRecorder.m */; };
 		BC53D1B31D16D59400FDC2D1 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC53D1B21D16D59400FDC2D1 /* CoreVideo.framework */; };
 		BC5592DC1D150B8200C4B648 /* 寂寞沙洲冷.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BC5592DB1D150B8200C4B648 /* 寂寞沙洲冷.mp3 */; };
@@ -942,6 +943,8 @@
 		BC3D4C6E1D1F8BD100F5B2C8 /* kalo_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kalo_bg.png; path = images/kalo_bg.png; sourceTree = SOURCE_ROOT; };
 		BC3D4C701D1FAAB800F5B2C8 /* microphone-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "microphone-512.png"; path = "images/playSong/microphone-512.png"; sourceTree = SOURCE_ROOT; };
 		BC3D4C721D20352300F5B2C8 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		BC5189151D24830C00AE03B8 /* PlayRecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayRecordingViewController.h; path = src/viewController/PlayRecordingViewController.h; sourceTree = SOURCE_ROOT; };
+		BC5189161D24830C00AE03B8 /* PlayRecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayRecordingViewController.m; path = src/viewController/PlayRecordingViewController.m; sourceTree = SOURCE_ROOT; };
 		BC53D1AF1D168BF400FDC2D1 /* ASScreenRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASScreenRecorder.h; path = "src/3rd-party/ASScreenRecorder/ASScreenRecorder.h"; sourceTree = SOURCE_ROOT; };
 		BC53D1B01D168C1100FDC2D1 /* ASScreenRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASScreenRecorder.m; path = "src/3rd-party/ASScreenRecorder/ASScreenRecorder.m"; sourceTree = SOURCE_ROOT; };
 		BC53D1B21D16D59400FDC2D1 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -1117,6 +1120,8 @@
 		2750E78A14CDB1CF007727A0 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				BC5189151D24830C00AE03B8 /* PlayRecordingViewController.h */,
+				BC5189161D24830C00AE03B8 /* PlayRecordingViewController.m */,
 				BC3D4C671D1F802200F5B2C8 /* ViewController.h */,
 				BC3D4C681D1F802200F5B2C8 /* ViewController.m */,
 				BCE5F36C1D1EE4250097E5BF /* YFJLeftSwipeDeleteTableView.h */,
@@ -2455,6 +2460,7 @@
 				47FE408F178430A900DED20D /* MessageListAPI.m in Sources */,
 				47FE4092178430BC00DED20D /* NotificationListAPI.m in Sources */,
 				47FE4095178430D900DED20D /* TrackListListAPI.m in Sources */,
+				BC5189171D24830C00AE03B8 /* PlayRecordingViewController.m in Sources */,
 				47FE40981784388500DED20D /* Chat.m in Sources */,
 				47FE409B178438A400DED20D /* Message.m in Sources */,
 				47FE409E178438C200DED20D /* Notification.m in Sources */,
