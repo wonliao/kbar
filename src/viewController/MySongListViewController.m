@@ -172,8 +172,33 @@
     UIButton *button = (UIButton *)sender;
     NSString* text = button.titleLabel.text;
     NSString* row = [NSString stringWithFormat:@"%d", button.tag];
-    NSLog( @"button(%@) row(%d)", text, row.intValue );
+    NSLog( @"button(%@) row(%d) (%d)", text, row.intValue, [m_recordData count] );
 
+    for( Record* currentRecord in m_recordData ) {
+        
+        if([currentRecord.index isEqualToString: row]) {
+        
+            NSString *playFlag = @"YES";
+            [[NSUserDefaults standardUserDefaults] setObject:playFlag forKey:@"playFlag"];
+            //[[NSUserDefaults standardUserDefaults] setObject:currentRecord.index forKey:@"index"];
+            [[NSUserDefaults standardUserDefaults] setObject:currentRecord.songId forKey:@"songId"];
+            [[NSUserDefaults standardUserDefaults] setObject:currentRecord.title forKey:@"songTitle"];
+            [[NSUserDefaults standardUserDefaults] setObject:currentRecord.content forKey:@"songKsc"];
+            [[NSUserDefaults standardUserDefaults] setObject:currentRecord.fileName forKey:@"fileName"];
+            [[NSUserDefaults standardUserDefaults] setObject:currentRecord.file forKey:@"file"];
+            [[NSUserDefaults standardUserDefaults] setObject:currentRecord.isVideo forKey:@"isVideo"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            NSString *identifier =@"RecordingSong";
+            UIViewController *singViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
+            singViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+            [self presentModalViewController:singViewController animated:YES];
+            
+            break;
+        }
+    }
+    
+/*
     Record* currentRecord = [m_recordData objectAtIndex:button.tag];
     //Record* currentRecord = [self.songTitle objectAtIndex:button.tag];
     if( currentRecord ) {
@@ -194,6 +219,7 @@
     UIViewController *singViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
     singViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentModalViewController:singViewController animated:YES];
+ */
 }
 
 // 從資料庫中讀取資料

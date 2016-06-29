@@ -43,13 +43,27 @@
     // // 載入本地端mp3和動態歌詞
     [self loadSong];
 
+    
+    // 設定錄音session
+    [self setupAudioSession];
+    
+    [self loadKscContent];
+    
+    audioIO_ = [[AudioIO alloc] initWithSamplingRate:44100.0];
+    
+    // 建立 recordAudio
+    m_recordAudio = [[RecordAudio alloc] init];
+    
+    // 音場設定選單
+    [self initOverlayView];
+    
+    
     // 回放
     if([m_playFlag isEqualToString:@"YES"]) {
         
         myView.hidden = NO;
         button5.hidden = YES;
-        
-        outputFileUrl = [NSURL URLWithString:[m_file stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
         [self play];
     } else {
         
@@ -59,17 +73,6 @@
         imagev.backgroundColor=[UIColor orangeColor];
         [myView addSubview:imagev];
 
-        // 設定錄音session
-        [self setupAudioSession];
-        
-        
-        audioIO_ = [[AudioIO alloc] initWithSamplingRate:44100.0];
-        
-        // 建立 recordAudio
-        m_recordAudio = [[RecordAudio alloc] init];
-
-        // 音場設定選單
-        [self initOverlayView];
     }
 }
 
@@ -77,6 +80,18 @@
 {
     [super viewDidUnload];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [moviePlayer stop];
 }
 
 - (void)didReceiveMemoryWarning
@@ -187,12 +202,17 @@
     // 檢查是否在MV模式?
     if([m_isVideo isEqualToString:@"YES"]) {
 
+        NSString *urlString = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mov", m_fileName]];
+        outputFileUrl = [NSURL fileURLWithPath:urlString];
+        
         // 播放錄影
         [self playVideo];
     } else {
+
+        
         
         // 播放合成之後的歌曲
-        [m_recordAudio playSong];
+        [m_recordAudio playSongWithFile:m_fileName];
         
         // 重置動態歌詞
         [lecLayer reset:tmpParser.lrcArray];
@@ -319,7 +339,7 @@
 
     m_mp3 = [[NSBundle mainBundle] pathForResource: m_songTitle ofType: @"mp3"];
     
-    [self loadKscContent];
+    
 }
 
 // 載入動態歌詞
@@ -463,21 +483,25 @@
 
 -(void)playVideo
 {
+
+    if(moviePlayer) [moviePlayer stop];
+    
     moviePlayer = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] player] initWithContentURL:outputFileUrl];
+    
     moviePlayer.view.tag = 99;
     moviePlayer.view.hidden = NO;
     moviePlayer.view.frame= CGRectMake(0, 0, myView.frame.size.width,
                                         myView.frame.size.height);
+    //NSLog(@"width(%f) height(%f)", myView.frame.size.width, myView.frame.size.height);
     moviePlayer.view.backgroundColor = [UIColor clearColor];
     moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
-    moviePlayer.fullscreen = NO;
+    moviePlayer.fullscreen = YES;
     [moviePlayer prepareToPlay];
     [moviePlayer readyForDisplay];
     [moviePlayer setControlStyle:MPMovieControlStyleDefault];
     moviePlayer.shouldAutoplay = YES;
     [myView addSubview:moviePlayer.view];
     [myView setHidden:NO];
-    
 
 }
 

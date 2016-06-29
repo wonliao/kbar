@@ -45,6 +45,7 @@
 - (void)stopMusic;                                                  // 停止音樂
 - (NSString*)merge2wav:(NSString*)music withRecord:(NSString *)path1 hasVideo:(BOOL)videoFlag;    // 開始合成
 - (void)playSong;                                                   // 播放合成之後的歌曲
+- (void)playSongWithFile:(NSString *)fileName;
 - (void)stopSong;                                                   // 停止播放合成之後的歌曲
 - (void)getCurrentTime:(double*) currentTime getEndTime:(double*)cEndTime;   // 取得目前播放時間
 - (void)pause;

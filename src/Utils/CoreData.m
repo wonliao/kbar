@@ -286,18 +286,8 @@
     NSError* error = nil;
     // 執行存取的指令並且將資料載入returnObjs
     NSMutableArray* returnObjs = [[[self managedObjectContext] executeFetchRequest:request error:&error] mutableCopy];
-/*
-    // 刪除 index 重覆的資料
-    for( Record* currentRecord in returnObjs ) {
 
-        if( [currentRecord.index isEqualToString: index] ) {
-
-            [[self managedObjectContext] deleteObject: currentRecord];
-        }
-    }
-*/
-    
-    NSUInteger index = [returnObjs count] + 1;
+    NSUInteger index = [returnObjs count];
     
     // 新增一個entity
     Record *record = (Record*)[NSEntityDescription insertNewObjectForEntityForName:@"Record" inManagedObjectContext:[self managedObjectContext]];

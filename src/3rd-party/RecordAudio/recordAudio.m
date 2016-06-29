@@ -325,6 +325,31 @@ NSString *NSStringFromResolution(UIDeviceResolution resolution);
     NSLog(@"duration(%f)", duration);
 }
 
+// 播放合成之後的歌曲
+- (void)playSongWithFile:(NSString *)fileName
+{
+    // 輸出檔案路徑
+    NSURL *tmpDirURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
+    NSURL *recordFile = [[tmpDirURL URLByAppendingPathComponent:fileName] URLByAppendingPathExtension:@"m4a"];
+    NSLog(@"playSong recordFile=> %@", [recordFile path] );
+    
+    if( !m_pLongMusicPlayer ) {
+        
+        m_pLongMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:recordFile error:nil];
+    }
+    
+    m_pLongMusicPlayer = [m_pLongMusicPlayer initWithContentsOfURL:recordFile error:nil];
+    [m_pLongMusicPlayer prepareToPlay];
+    [m_pLongMusicPlayer play];
+    
+    startTime = CFAbsoluteTimeGetCurrent();
+    
+    // 音樂時間長度
+    AVURLAsset *songAsset = [AVURLAsset URLAssetWithURL:recordFile options:nil];
+    duration = (float)songAsset.duration.value / (float)songAsset.duration.timescale;
+    NSLog(@"duration(%f)", duration);
+}
+
 // 停止播放合成之後的歌曲
 - (void)stopSong
 {
