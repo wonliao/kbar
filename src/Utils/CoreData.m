@@ -301,7 +301,7 @@
     
     // 新增一個entity
     Record *record = (Record*)[NSEntityDescription insertNewObjectForEntityForName:@"Record" inManagedObjectContext:[self managedObjectContext]];
-    record.index = [NSString stringWithFormat:@"%ul",  index];
+    record.index = [NSString stringWithFormat:@"%d",  index];
     record.songId = songId;
     record.title = title;
     record.fileName = name;
@@ -349,6 +349,7 @@
     // 刪除 index 的資料
     for( Record* currentRecord in returnObjs ) {
         
+        NSLog(@"(%@)(%@)", currentRecord.index, index);
         if( [currentRecord.index isEqualToString: index] ) {
             
             [[self managedObjectContext] deleteObject: currentRecord];

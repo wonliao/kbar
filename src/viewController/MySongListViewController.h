@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CoreData.h"
+#import "YFJLeftSwipeDeleteTableView.h"
 
 @interface MySongListViewController :UIViewController<UITableViewDelegate, UITableViewDataSource>{
     
@@ -15,6 +16,8 @@
     CoreData *m_coreData;
     
     NSMutableArray *m_recordData;
+    
+    IBOutlet YFJLeftSwipeDeleteTableView *m_tableView;
 }
 
 - (IBAction)buttonTapped:(id)sender;

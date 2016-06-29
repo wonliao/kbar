@@ -908,8 +908,8 @@
                                 <rect key="frame" x="0.0" y="44" width="320" height="387"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="WPc-f0-pek" id="IOu-4C-PPi"/>
-                                    <outlet property="delegate" destination="WPc-f0-pek" id="PLa-Oo-f8o"/>
+                                    <outlet property="dataSource" destination="WPc-f0-pek" id="t22-Tn-Q80"/>
+                                    <outlet property="delegate" destination="WPc-f0-pek" id="p0X-Sc-G1w"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -925,6 +925,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="精采重播" image="DazStarIcon.png" id="aTa-Uu-Fzw"/>
+                    <connections>
+                        <outlet property="m_tableView" destination="lya-Bh-FMf" id="6xN-Hr-1lv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3sB-2d-9Lj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

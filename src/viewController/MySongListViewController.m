@@ -8,13 +8,13 @@
 
 #import "MySongListViewController.h"
 #import "Record.h"      // 錄音的資料庫互動類別
-#import "YFJLeftSwipeDeleteTableView.h"
+
 
 
 @interface MySongListViewController ()
 @property (nonatomic, strong) NSArray *songTitle;
 @property (nonatomic, strong) NSArray *songKsc;
-@property (nonatomic, strong) YFJLeftSwipeDeleteTableView * tableView;
+//@property (nonatomic, strong) IBOutlet YFJLeftSwipeDeleteTableView * tableView;
 @end
 
 
@@ -69,6 +69,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    m_recordData = [self loadRecordData];
+
+    [m_tableView reloadData];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
@@ -77,7 +86,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    //m_recordData = [self loadRecordData];
+    
     return [m_recordData count];
 }
 
@@ -105,7 +114,12 @@
                       forState:UIControlStateHighlighted];
     [button.titleLabel setFont:[UIFont systemFontOfSize:13]];
     [button setTitle:@"播放" forState:UIControlStateNormal];
-    [button setTag:[indexPath row]];
+    //[button setTag:[indexPath row]];
+    
+    NSLog(@"currentRecord.index(%@)", currentRecord.index);
+    [button setTag:[currentRecord.index intValue]];
+    
+    
     [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
     cell.accessoryView = button;
     
@@ -128,10 +142,16 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [m_coreData deleteRecordData: [NSString stringWithFormat:@"%d",indexPath.row]];
         
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        Record* currentRecord = [m_recordData objectAtIndex:indexPath.row];
+        NSLog(@"indexPath.row(%d) currentRecord.index(%@)", indexPath.row, currentRecord.index);
+        
+        [m_coreData deleteRecordData: currentRecord.index];
+        m_recordData = [self loadRecordData];
+        
+        [tableView beginUpdates];
+        [m_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject: indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -140,7 +160,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [m_tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -183,12 +203,13 @@
      return returnObjs;
 }
 
+/*
 -(void) deleteRecordDataByIndex:(NSString *)index
 {
     
     [m_coreData deleteRecordData:index];
 }
-
+*/
 /*
 // 新增資料庫管理物件準備寫入
 - (void) addRecordingData:(NSString *)index WithTitle:(NSString *)title AndFile:(NSString *)file AndContent:(NSString *)content
