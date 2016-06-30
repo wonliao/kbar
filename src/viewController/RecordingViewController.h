@@ -13,12 +13,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AudioIO.h"
 #import "CoreData.h"
-//#import "FBCoreData.h"  // fbUserInfo的資料庫互動類別
-//#import "wordpress.h"
-//#import "BarChart.h"
-//#import "UIEffectDesignerView.h"
 #import "QBKOverlayMenuView.h"
-//#import <MediaPlayer/MediaPlayer.h>
 #import "AppDelegate.h"
 #import "SocialVideoHelper.h"
 
@@ -62,26 +57,12 @@
 
     AudioIO *audioIO_;
 
-    // 分數
-    //int m_label1_count;
-    int m_totalScore;
-    int m_scoreCount;
-
-    //FBCoreData *m_FbCoreData;
-    //wordpress *m_wordpress;
-
-    // 長條圖
-    //BarChart *barChart;
-    //UIEffectDesignerView* effectView1;
-    //UIEffectDesignerView* effectView2;
-    
     // 錄影
     IBOutlet UIView *myView;
     NSString *filePath;
     NSURL *fileUrl;
     AVCaptureSession *captureSession;
     AVCaptureMovieFileOutput *captureOutput;
-    AVPlayer *m_videoPlayer;
     AVCaptureVideoPreviewLayer *previewLayer;
     
     // OverlayMenu
@@ -113,17 +94,11 @@
 - (IBAction)endButtonTapped:(id)sender;
 - (IBAction)playButtonTapped:(id)sender;
 - (IBAction)cancelButtonTapped:(id)sender;
-//- (IBAction)uploadButtonTapped:(id)sender;
 - (IBAction)stopSongButtonTapped:(id)sender;
 - (IBAction)reRecordTapped:(id)sender;
-//- (IBAction)pauseTapped:(id)sender;
 - (IBAction)mvTapped:(id)sender;
 
 
 // 錄影
 @property (nonatomic,retain)IBOutlet UIView *myView;
-//-(void)setCaptureConfig;
-//-(void)checkDevice;
-//-(void)setPreview;
-//-(void)outputFile;
 @end

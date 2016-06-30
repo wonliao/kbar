@@ -9,14 +9,11 @@
 #import "Recording.h"   // 目前要錄音的資料庫互動類別
 #import "ASIFormDataRequest.h"
 #import "CaptureSessionController.h"
-//#import "FBCoreData.h"
 #import "ASScreenRecorder.h"
 #import <FBSDKShareKit/FBSDKShareKit.h>
 
 // Private stuff
 @interface RecordingViewController ()
-//- (void)uploadFailed:(ASIHTTPRequest *)theRequest;
-//- (void)uploadFinished:(ASIHTTPRequest *)theRequest;
 @property (nonatomic ,strong) IBOutlet CaptureSessionController *captureSessionController;
 @end
 
@@ -43,11 +40,10 @@
     // // 載入本地端mp3和動態歌詞
     [self loadSong];
 
-    
     // 設定錄音session
     [self setupAudioSession];
     
-    [self loadKscContent];
+    //[self loadKscContent];
     
     audioIO_ = [[AudioIO alloc] initWithSamplingRate:44100.0];
     
@@ -57,29 +53,16 @@
     // 音場設定選單
     [self initOverlayView];
     
-    
-    // 回放
-    if([m_playFlag isEqualToString:@"YES"]) {
-        
-        myView.hidden = NO;
-        button5.hidden = YES;
-
-        [self play];
-    } else {
-        
-        // 錄影
-        imagev = [[UIImageView alloc] init];
-        imagev.frame = myView.layer.bounds;
-        imagev.backgroundColor=[UIColor orangeColor];
-        [myView addSubview:imagev];
-
-    }
+    // 錄影
+    imagev = [[UIImageView alloc] init];
+    imagev.frame = myView.layer.bounds;
+    imagev.backgroundColor=[UIColor orangeColor];
+    [myView addSubview:imagev];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -129,17 +112,12 @@
 //錄音完成或取消
 - (IBAction)endButtonTapped:(id)sender
 {
-    [audioIO_ stop];
-
-    // 合成錄音及音樂
-    [self mergeRecord];
+    [self stopUpdate];
 }
 
 // 合成錄音及音樂
 - (void)mergeRecord
 {
-    [self stopUpdate];
-
     // 檢查是否在MV模式?
     if(myView.hidden == NO) {
 
@@ -197,44 +175,19 @@
     [button2 setAction:@selector(stopSongButtonTapped:)];
 }
 
--(void)play
-{
-    // 檢查是否在MV模式?
-    if([m_isVideo isEqualToString:@"YES"]) {
-
-        NSString *urlString = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mov", m_fileName]];
-        outputFileUrl = [NSURL fileURLWithPath:urlString];
-        
-        // 播放錄影
-        [self playVideo];
-    } else {
-
-        
-        
-        // 播放合成之後的歌曲
-        [m_recordAudio playSongWithFile:m_fileName];
-        
-        // 重置動態歌詞
-        [lecLayer reset:tmpParser.lrcArray];
-        
-        // 播放動態歌詞
-        [self loadKscContent];
-    }
-    
-    // 設定 播放鈕
-    [button2 setTitle:@"停止"];
-    [button2 setEnabled:YES];
-    [button2 setAction:@selector(stopSongButtonTapped:)];
-}
-
 // 按下停止
 - (IBAction)stopSongButtonTapped:(id)sender
+{
+    [self stop];
+}
+
+- (void)stop
 {
     // 檢查是否在MV模式?
     if(myView.hidden == NO) {
         
         [moviePlayer stop];
-
+        
         for (UIView *subView in myView.subviews)
         {
             if (subView.tag == 99)
@@ -243,7 +196,7 @@
             }
         }
     } else {
-
+        
         // 停止播歌
         [m_recordAudio stopSong];
     }
@@ -306,6 +259,9 @@
     // 設定錄音session
     [self setupAudioSession];
     
+    // 播放動態歌詞
+    [self loadKscContent];
+    
     [audioIO_ open];
     [audioIO_ start];
     
@@ -325,7 +281,6 @@
     [button2 setAction:@selector(playButtonTapped:)];
 }
 
-
 // 載入本地端mp3和動態歌詞
 -(void)loadSong
 {
@@ -336,10 +291,7 @@
     m_fileName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fileName"];
     m_file = [[NSUserDefaults standardUserDefaults] objectForKey:@"file"];
     m_isVideo = [[NSUserDefaults standardUserDefaults] objectForKey:@"isVideo"];
-
     m_mp3 = [[NSBundle mainBundle] pathForResource: m_songTitle ofType: @"mp3"];
-    
-    
 }
 
 // 載入動態歌詞
@@ -377,50 +329,39 @@
     // 更新動態歌詞
     m_currentTime = (int)(cTime * 1000);
 
-    //int score = [lecLayer updateLRCLineLayer:m_currentTime AndAvg:avg AndFrequency:frequency];
     [lecLayer updateLRCLineLayer:m_currentTime];
-
-/*
+    
     // 音樂播放完畢時
-    if( [m_recordAudio.m_pLongMusicPlayer isPlaying] == NO ) {
+    if( [m_recordAudio.m_pLongMusicPlayer isPlaying] == NO && cEndTime != 0 ) {
 
-        if( self.captureSessionController.isRecording ) {
-
-            // 合成錄音及音樂
-            [self mergeRecord];
-        } else {
-
-            [self stopUpdate];
-            
-        }
+        [self performSelectorOnMainThread:@selector(stopUpdate) withObject:nil waitUntilDone:NO];
     }
-*/
-
-/*
-    if( [audioIO_ isHeadsetPluggedIn] == YES && self.captureSessionController.isRecording ) {
-
-        [audioIO_ start];
-    } else {
-
-        [audioIO_ stop];
-    }
-*/
 }
 
 - (void)stopUpdate
 {
+    // 錄歌
+    if( self.captureSessionController.isRecording ) {
+        
+        [audioIO_ stop];
+        
+        // 合成錄音及音樂
+        [self mergeRecord];
+    // 播放
+    } else {
+        
+        [self stop];
+    }
+    
     // 停止動態歌詞
     [self.timer invalidate];
     self.timer = nil;
     
     // 停止音樂
     [m_recordAudio stopMusic];
-    
-    // 停止播放影片
-    [m_videoPlayer pause];
 }
 
-// 播放 合成中的進度吧
+// 合成中的進度吧
 - (void)showProgress
 {
     // 設定按鈕狀態
@@ -483,26 +424,23 @@
 
 -(void)playVideo
 {
-
     if(moviePlayer) [moviePlayer stop];
     
     moviePlayer = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] player] initWithContentURL:outputFileUrl];
-    
     moviePlayer.view.tag = 99;
     moviePlayer.view.hidden = NO;
-    moviePlayer.view.frame= CGRectMake(0, 0, myView.frame.size.width,
-                                        myView.frame.size.height);
-    //NSLog(@"width(%f) height(%f)", myView.frame.size.width, myView.frame.size.height);
+    moviePlayer.view.frame= CGRectMake(0, 0, myView.frame.size.width, myView.frame.size.height);
     moviePlayer.view.backgroundColor = [UIColor clearColor];
     moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
     moviePlayer.fullscreen = YES;
+    moviePlayer.shouldAutoplay = YES;
+    [moviePlayer setRepeatMode:MPMovieRepeatModeNone];
     [moviePlayer prepareToPlay];
     [moviePlayer readyForDisplay];
     [moviePlayer setControlStyle:MPMovieControlStyleDefault];
-    moviePlayer.shouldAutoplay = YES;
+    
     [myView addSubview:moviePlayer.view];
     [myView setHidden:NO];
-
 }
 
 - (void)saveToCameraRoll
@@ -586,8 +524,6 @@
     dispatch_async(dispatch_get_main_queue(), ^{
        [imagev setImage:[UIImage imageWithData:mData]];
     });
-    //[myView addSubview:imagev];
-    //NSLog(@"output,mdata:%@",image);
 }
 
 // 把buffer流生成图片

@@ -156,16 +156,12 @@
     // 更新動態歌詞
     m_currentTime = (int)(cTime * 1000);
 
-    //int score = [lecLayer updateLRCLineLayer:m_currentTime AndAvg:avg AndFrequency:frequency];
     [lecLayer updateLRCLineLayer:m_currentTime];
 
     // 音樂播放完畢時
-    if( [m_recordAudio.m_pLongMusicPlayer isPlaying] == NO ) {
+    if( [m_recordAudio.m_pLongMusicPlayer isPlaying] == NO && cEndTime != 0 ) {
 
-        if( !self.captureSessionController.isRecording ) {
-
-            [self performSelectorOnMainThread:@selector(stopUpdate) withObject:nil waitUntilDone:NO];
-        }
+        [self performSelectorOnMainThread:@selector(stopUpdate) withObject:nil waitUntilDone:NO];
     }
 }
 
