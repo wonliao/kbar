@@ -177,22 +177,7 @@
 
     cell.textLabel.text = [self.sampleItems objectAtIndex:indexPath.row];
     cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
-/*
-    // 檢查是否已下載
-    for( Record* currentRecord in m_recordData ) {
 
-        if( [currentRecord.row isEqualToString:[NSString stringWithFormat:@"%d", indexPath.row] ] ) {
-
-            if( [currentRecord.downloaded isEqualToString:@"YES"] ) {
-
-                [button setTitle:@"演唱" forState:UIControlStateNormal];
-                [button setEnabled:YES];
-            }
-
-            break;
-        }
-    }
-*/
     // 清除 cell 的下載進度吧
     for (UITableViewCell *view in [cell subviews]) {
 

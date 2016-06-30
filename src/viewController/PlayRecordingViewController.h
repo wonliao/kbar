@@ -115,7 +115,7 @@
 - (IBAction)cancelButtonTapped:(id)sender;
 //- (IBAction)uploadButtonTapped:(id)sender;
 - (IBAction)stopSongButtonTapped:(id)sender;
-- (IBAction)reRecordTapped:(id)sender;
+//- (IBAction)reRecordTapped:(id)sender;
 //- (IBAction)pauseTapped:(id)sender;
 - (IBAction)mvTapped:(id)sender;
 

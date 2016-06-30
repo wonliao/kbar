@@ -10,28 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/viewController/PlayRecordingViewController.m"
-            timestampString = "488932259.689262"
+            timestampString = "488985148.709733"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "src/viewController/MySongListViewController.m"
-            timestampString = "488932286.862522"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
-            landmarkName = "-buttonTapped:"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "-stopUpdate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
